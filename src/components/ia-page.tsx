@@ -150,7 +150,7 @@ export default function IaPage() {
 					>
 						<div className="IaPage-heroIntroAccent">
 							<span className="IaPage-gradientLine --light">
-								Menos fricción
+								Menos carga de trabajo
 							</span>
 							<span className="IaPage-gradientLine --mid">
 								Más eficiencia

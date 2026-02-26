@@ -12,8 +12,8 @@ export default function WebDevPage() {
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const heroBlockRef = useRef<HTMLDivElement>(null)
 	const techRef = useRef<HTMLElement>(null)
-	const designRef = useRef<HTMLElement>(null)
-	const ecommerceRef = useRef<HTMLElement>(null)
+	const designRef = useRef<HTMLDivElement>(null)
+	const ecommerceRef = useRef<HTMLDivElement>(null)
 	const [entered, setEntered] = useState(false)
 
 	useEffect(() => {
