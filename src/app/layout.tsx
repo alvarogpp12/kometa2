@@ -6,6 +6,7 @@ import { CustomCursor } from '@/components/custom-cursor'
 import { Preloader } from '@/components/preloader'
 import { PageTransition } from '@/components/page-transition'
 import { LenisProvider } from '@/components/LenisProvider'
+import ChatWidget from '@/components/chat-widget'
 
 const season = localFont({
 	src: '../../public/fonts/season-500.woff2',
@@ -37,6 +38,7 @@ export default function RootLayout({
 					</div>
 				</LenisProvider>
 				<Navigation />
+				<ChatWidget />
 			</body>
 		</html>
 	)

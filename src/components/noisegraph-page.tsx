@@ -8,46 +8,53 @@ interface ProjectItem {
 	name: string
 	slug: string
 	video: string
+	aspect: '16:9' | '9:16'
 }
 
 const PROJECTS: ProjectItem[] = [
 	{
-		name: 'New York City Ballet',
-		slug: 'new-york-city-ballet',
-		video: '/videos/REEL 12.mp4',
+		name: 'Adealfar',
+		slug: 'adealfar',
+		video: '/videos/adealfar.mp4',
+		aspect: '16:9',
 	},
 	{
-		name: 'Mary Kay',
-		slug: 'mary-kay',
-		video: '/videos/REEL 1.mp4',
+		name: 'González y González',
+		slug: 'gonzalez-y-gonzalez',
+		video: '/videos/gonzalezygonzalez.mp4',
+		aspect: '9:16',
 	},
 	{
-		name: 'Hennessy',
-		slug: 'hennessy',
-		video: '/videos/REEL 3.mp4',
-	},
-	{
-		name: 'Taranjales',
-		slug: 'taranjales',
+		name: 'Los Taranjales',
+		slug: 'los-taranjales',
 		video: '/videos/webtaranjales.mp4',
+		aspect: '16:9',
 	},
 	{
-		name: 'GyG',
-		slug: 'gyg',
+		name: 'ARS Living Sevilla',
+		slug: 'ars-living-sevilla',
 		video: '/videos/videosmarketing/GyG_Campaña_SV_Receta_Cupcakes.mp4',
+		aspect: '9:16',
 	},
 	{
-		name: 'Chocolates',
-		slug: 'chocolates',
-		video: '/videos/videosmarketing/TRAILER CHOCOLATES V5.mp4',
+		name: 'Sanvinx L\'Épicurien',
+		slug: 'sanvinx-lepicurien',
+		video: '/videos/sanvin x Lépicurien.mp4',
+		aspect: '16:9',
 	},
 ]
+
+const DIMS = {
+	'16:9': { w: '56rem', h: '31.5rem' },
+	'9:16': { w: '20rem', h: '35.5rem' },
+} as const
 
 export default function NoisegraphPage() {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const bgVideoRef = useRef<HTMLVideoElement>(null)
 	const previewVideoRef = useRef<HTMLVideoElement>(null)
+	const previewWrapRef = useRef<HTMLDivElement>(null)
 	const prevIndexRef = useRef(0)
 	const textRef = useRef<HTMLDivElement>(null)
 	const [textVisible, setTextVisible] = useState(false)
@@ -74,17 +81,24 @@ export default function NoisegraphPage() {
 	useEffect(() => {
 		const titleEl = titleRef.current
 		if (!titleEl) return
-
 		gsap.fromTo(
 			titleEl,
 			{ autoAlpha: 0, y: 50 },
-			{
-				autoAlpha: 1,
-				y: 0,
-				duration: 0.9,
-				ease: 'power3.out',
-			},
+			{ autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out' },
 		)
+	}, [])
+
+	useEffect(() => {
+		const vid = previewVideoRef.current
+		const wrap = previewWrapRef.current
+		if (vid) {
+			vid.src = PROJECTS[0].video
+			vid.play().catch(() => {})
+		}
+		if (wrap) {
+			const d = DIMS[PROJECTS[0].aspect]
+			gsap.set(wrap, { width: d.w, height: d.h })
+		}
 	}, [])
 
 	useEffect(() => {
@@ -96,12 +110,7 @@ export default function NoisegraphPage() {
 			gsap.fromTo(
 				titleEl,
 				{ autoAlpha: 0, y: 20 },
-				{
-					autoAlpha: 1,
-					y: 0,
-					duration: 0.5,
-					ease: 'power2.out',
-				},
+				{ autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' },
 			)
 		}
 
@@ -111,12 +120,42 @@ export default function NoisegraphPage() {
 			bgVideoRef.current.play().catch(() => {})
 		}
 
-		if (previewVideoRef.current) {
-			previewVideoRef.current.src = activeProject.video
-			previewVideoRef.current.load()
-			previewVideoRef.current.play().catch(() => {})
+		const wrap = previewWrapRef.current
+		if (wrap) {
+			const d = DIMS[activeProject.aspect]
+			gsap.to(wrap, {
+				width: d.w,
+				height: d.h,
+				duration: 0.7,
+				ease: 'power3.inOut',
+			})
 		}
-	}, [activeIndex, activeProject.video])
+
+		const vid = previewVideoRef.current
+		if (vid) {
+			gsap.to(vid, {
+				opacity: 0,
+				scale: 0.97,
+				duration: 0.25,
+				ease: 'power2.in',
+				onComplete: () => {
+					vid.src = activeProject.video
+					vid.load()
+					vid.play().catch(() => {})
+					gsap.fromTo(
+						vid,
+						{ opacity: 0, scale: 1.03 },
+						{
+							opacity: 1,
+							scale: 1,
+							duration: 0.45,
+							ease: 'power2.out',
+						},
+					)
+				},
+			})
+		}
+	}, [activeIndex, activeProject.video, activeProject.aspect])
 
 	useEffect(() => {
 		const el = textRef.current
@@ -149,20 +188,30 @@ export default function NoisegraphPage() {
 					<div className="ProjectsPage-bgOverlay" />
 				</div>
 
-				<div className="ProjectsPage-header">
-					<Link
-						href="/"
-						className="ProjectsPage-backLink"
-					>
-						Go to homepage
-					</Link>
-					<span className="ProjectsPage-location">
-						MADRID{' '}
-						<span className="ProjectsPage-clock">
-							{clock}
-						</span>
+			<div className="viewfinder-corners" aria-hidden="true">
+				<span className="vf-corner --top-left" />
+				<span className="vf-corner --top-right" />
+				<span className="vf-corner --bottom-left" />
+				<span className="vf-corner --bottom-right" />
+			</div>
+
+			<div className="ProjectsPage-header">
+				<Link
+					href="/"
+					className="ProjectsPage-backLink"
+				>
+					Go to homepage
+				</Link>
+				<h2 className="ProjectsPage-headerTitle">
+					proyectos
+				</h2>
+				<span className="ProjectsPage-location">
+					MADRID{' '}
+					<span className="ProjectsPage-clock">
+						{clock}
 					</span>
-				</div>
+				</span>
+			</div>
 
 				<div className="ProjectsPage-body">
 					<h1
@@ -201,18 +250,22 @@ export default function NoisegraphPage() {
 							))}
 						</nav>
 
-						<div className="ProjectsPage-preview">
-							<video
-								ref={previewVideoRef}
-								className="ProjectsPage-previewVideo"
-								src={activeProject.video}
-								preload="metadata"
-								autoPlay
-								loop
-								muted
-								playsInline
-							/>
-						</div>
+				<div className="ProjectsPage-preview">
+					<div
+						ref={previewWrapRef}
+						className="ProjectsPage-previewInner"
+					>
+						<video
+							ref={previewVideoRef}
+							className="ProjectsPage-previewVideo"
+							preload="metadata"
+							autoPlay
+							loop
+							muted
+							playsInline
+						/>
+					</div>
+				</div>
 
 						<div
 							className="ProjectsPage-rail"
@@ -233,13 +286,13 @@ export default function NoisegraphPage() {
 				</div>
 			</section>
 
-			<section className="WebDevPage-hero">
-				<div
-					ref={textRef}
-					className="WebDevPage-heroInner wrapper-1290"
-				>
+			<section
+				ref={textRef}
+				className="NoiseText"
+			>
+				<div className="NoiseText-inner wrapper-1290">
 					<div
-						className="WebDevPage-bodyRight"
+						className="NoiseText-block"
 						style={{
 							opacity: textVisible ? 1 : 0,
 							transform: textVisible
@@ -249,25 +302,33 @@ export default function NoisegraphPage() {
 								'all 1s cubic-bezier(0.165, 0.84, 0.44, 1)',
 						}}
 					>
-						<p className="WebDevPage-bodySerif">
-							¿Coordinas freelancers para cada
-							proyecto? ¿Pierdes tiempo
-							gestionando proveedores?
-						</p>
-						<p className="WebDevPage-bodyText">
-							Un solo equipo para toda tu
-							comunicación: estrategia,
-							producción y entrega.
-						</p>
-						<p className="WebDevPage-bodySerif">
-							Para marcas que quieren eficiencia
-							real y agencias que buscan un
-							partner de confianza.
-						</p>
-						<p className="WebDevPage-bodySerif --large">
-							Sede en Madrid, pero vamos
-							donde estés.
-						</p>
+						<div className="NoiseText-row">
+							<span className="NoiseText-label">Problema</span>
+							<p className="NoiseText-value">
+								¿Coordinas freelancers para cada proyecto?
+								¿Pierdes tiempo gestionando proveedores?
+							</p>
+						</div>
+						<div className="NoiseText-row">
+							<span className="NoiseText-label">Solución</span>
+							<p className="NoiseText-value">
+								Un solo equipo para toda tu comunicación:
+								estrategia, producción y entrega.
+							</p>
+						</div>
+						<div className="NoiseText-row">
+							<span className="NoiseText-label">Para quién</span>
+							<p className="NoiseText-value">
+								Para marcas que quieren eficiencia real
+								y agencias que buscan un partner de confianza.
+							</p>
+						</div>
+						<div className="NoiseText-row --last">
+							<span className="NoiseText-label">Dónde</span>
+							<p className="NoiseText-value --accent">
+								Sede en Madrid, pero vamos donde estés.
+							</p>
+						</div>
 					</div>
 				</div>
 			</section>

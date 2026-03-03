@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 export function HeroIntro() {
 	const [loaded, setLoaded] = useState(false)
@@ -40,10 +39,20 @@ export function HeroIntro() {
 				</span>
 			</p>
 			<div>
-				<Link href="/about" className="AppButton">
+				<button
+					type="button"
+					className="AppButton"
+					onClick={() =>
+						window.dispatchEvent(
+							new Event('openKevinChat'),
+						)
+					}
+				>
 					<span className="pl-square" />
-					<span className="AppButton-title">Read More</span>
-				</Link>
+					<span className="AppButton-title">
+						Read More
+					</span>
+				</button>
 			</div>
 		</div>
 	)

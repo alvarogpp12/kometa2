@@ -5,6 +5,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
+import { splitChars } from '@/lib/split-chars'
 
 const TOOLS_CRM = [
 	'HubSpot',
@@ -68,6 +69,48 @@ export default function IaPage() {
 		if (!entered) return
 
 		const ctx = gsap.context(() => {
+			const COLOR_MAP: Record<string, string> = {
+				'--light': 'rgba(255, 255, 255, 0.9)',
+				'--mid': 'rgba(255, 255, 255, 0.55)',
+				'--dark': 'rgba(255, 255, 255, 0.3)',
+			}
+			const gradientLines =
+				pageRef.current?.querySelectorAll(
+					'.IaPage-gradientLine',
+				)
+			if (gradientLines?.length) {
+				const allChars: HTMLSpanElement[] = []
+				const targetColors: string[] = []
+
+				gradientLines.forEach((line) => {
+					const el = line as HTMLElement
+					const modifier =
+						el.classList.contains('--light')
+							? '--light'
+							: el.classList.contains('--mid')
+								? '--mid'
+								: '--dark'
+					const chars = splitChars(el)
+					chars.forEach((c) => {
+						allChars.push(c)
+						targetColors.push(
+							COLOR_MAP[modifier],
+						)
+					})
+				})
+
+				gsap.set(allChars, {
+					color: 'rgba(255, 255, 255, 0.05)',
+				})
+				gsap.to(allChars, {
+					color: (i: number) => targetColors[i],
+					duration: 0.6,
+					stagger: 0.02,
+					ease: 'power2.out',
+					delay: 0.5,
+				})
+			}
+
 			const reveals =
 				pageRef.current?.querySelectorAll('[data-reveal]')
 			if (!reveals) return
@@ -89,6 +132,27 @@ export default function IaPage() {
 					},
 				)
 			})
+
+			const autoItems =
+				pageRef.current?.querySelectorAll('.IaPage-autoItem')
+			if (autoItems?.length) {
+				gsap.fromTo(
+					autoItems,
+					{ autoAlpha: 0, y: 48 },
+					{
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.8,
+						ease: 'power3.out',
+						stagger: 0.12,
+						scrollTrigger: {
+							trigger: '.IaPage-autoList',
+							start: 'top 80%',
+							once: true,
+						},
+					},
+				)
+			}
 		})
 
 		return () => ctx.revert()
@@ -231,10 +295,6 @@ export default function IaPage() {
 							<div
 								key={item.title}
 								className="IaPage-autoItem"
-								data-reveal
-								style={{
-									transitionDelay: `${i * 0.06}s`,
-								}}
 							>
 								<span className="IaPage-autoIndex">
 									0{i + 1}
@@ -264,13 +324,18 @@ export default function IaPage() {
 			<section className="IaPage-cta">
 				<div className="wrapper-1290">
 					<div className="IaPage-ctaInner" data-reveal>
-						<Link
-							href="/contact"
+						<button
+							type="button"
 							className="IaPage-ctaButton"
 							data-cursor-hover
+							onClick={() =>
+								window.dispatchEvent(
+									new Event('openKevinChat'),
+								)
+							}
 						>
 							<span>Hablemos</span>
-						</Link>
+						</button>
 					</div>
 				</div>
 			</section>

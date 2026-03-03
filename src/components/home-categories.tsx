@@ -93,10 +93,20 @@ export function HomeCategories() {
 					transition: 'opacity 0.6s ease 0.4s',
 				}}
 			>
-				<Link href="/categories" className="AppButton">
+				<button
+					type="button"
+					className="AppButton"
+					onClick={() =>
+						window.dispatchEvent(
+							new Event('openKevinChat'),
+						)
+					}
+				>
 					<span className="pl-square" />
-					<span className="AppButton-title">See All</span>
-				</Link>
+					<span className="AppButton-title">
+						See All
+					</span>
+				</button>
 			</div>
 		</section>
 	)

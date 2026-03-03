@@ -10,7 +10,7 @@ export const SERVICES: ServiceContent[] = [
 	{
 		slug: 'produccion-audiovisual',
 		title: 'Produccion Audiovisual',
-		previewVideo: '/videos/REEL 12.mp4',
+		previewVideo: '/videos/adealfar.mp4',
 		introFirst:
 			'¿Coordinas freelancers para cada proyecto? ¿Pierdes tiempo gestionando proveedores?',
 		introSecond:
@@ -35,30 +35,12 @@ export const SERVICES: ServiceContent[] = [
 			'Automatización, optimización y escalabilidad sin perder identidad. La tecnología no sustituye la visión. La amplifica.',
 	},
 	{
-		slug: 'gestion-rrss',
-		title: 'Gestion RRSS',
-		previewVideo: '/videos/showreel.mp4',
-		introFirst:
-			'Construimos presencia coherente en canales sociales, con dirección creativa clara.',
-		introSecond:
-			'Estrategia editorial, producción visual y ejecución alineadas con el posicionamiento de marca.',
-	},
-	{
-		slug: 'studio',
-		title: 'Studio',
-		previewVideo: '/videos/showreel.mp4',
-		introFirst:
-			'Espacio y dirección para producciones de contenido e imagen de alto nivel.',
-		introSecond:
-			'Un entorno de producción flexible para piezas audiovisuales profesionales, desde la idea hasta la entrega.',
-	},
-	{
 		slug: 'gabinete-de-prensa',
 		title: 'Gabinete de Prensa',
-		previewVideo: '/videos/showreel.mp4',
+		previewVideo: '/videos/VIDEO-2026-02-16-22-52-32.mp4',
 		introFirst:
-			'Activamos presencia en medios convencionales con estrategia y criterio editorial.',
+			'Activamos tu evento/marca en medios nacionales e internacionales.',
 		introSecond:
-			'Relación con periodistas, visibilidad y construcción de reputación pública. La autoridad no solo se construye online.',
+			'Prensa escrita, televisión y medios digitales, a través de nuestro socio GTRES.',
 	},
 ]

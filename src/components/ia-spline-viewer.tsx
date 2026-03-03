@@ -1,56 +1,86 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useRef } from 'react'
+import type { CSSProperties } from 'react'
 import Spline from '@splinetool/react-spline'
+import type { Application } from '@splinetool/runtime'
 
 interface IaSplineViewerProps {
 	scene: string
 	className?: string
+	style?: CSSProperties
 }
 
 export default function IaSplineViewer({
 	scene,
 	className,
+	style,
 }: IaSplineViewerProps) {
-	const containerRef = useRef<HTMLDivElement>(null)
+	const hasSetup = useRef(false)
 
-	useEffect(() => {
-		const el = containerRef.current
-		if (!el) return
+	const handleLoad = useCallback((app: Application) => {
+		if (hasSetup.current) return
+		hasSetup.current = true
 
-		const blockWheel = (e: WheelEvent) => {
-			e.preventDefault()
-			e.stopPropagation()
+		const canvas = app.canvas as HTMLCanvasElement | undefined
+		if (!canvas) return
 
-			const target = el.parentElement ?? document.documentElement
-			target.dispatchEvent(
-				new WheelEvent('wheel', {
-					deltaX: e.deltaX,
-					deltaY: e.deltaY,
-					deltaMode: e.deltaMode,
-					bubbles: true,
-					cancelable: true,
-				}),
-			)
+		const root = canvas.closest(
+			'.SliceHomeArtists-spline',
+		) as HTMLElement | null
+
+		if (root) {
+			const observer = new MutationObserver(() => {
+				root
+					.querySelectorAll<HTMLElement>('a, [class*="logo"]')
+					.forEach((el) => {
+						el.style.display = 'none'
+					})
+			})
+			observer.observe(root, { childList: true, subtree: true })
+
+			root
+				.querySelectorAll<HTMLElement>('a, [class*="logo"]')
+				.forEach((el) => {
+					el.style.display = 'none'
+				})
 		}
 
-		el.addEventListener('wheel', blockWheel, { passive: false })
-		return () => el.removeEventListener('wheel', blockWheel)
+		const scrollTarget = root?.closest(
+			'.SliceHomeArtists-mediaStage',
+		) as HTMLElement | null
+
+		const wheelContainer = root ?? canvas.parentElement
+		if (wheelContainer) {
+			wheelContainer.addEventListener(
+				'wheel',
+				(e: WheelEvent) => {
+					e.preventDefault()
+					e.stopPropagation()
+					const dest =
+						scrollTarget?.parentElement
+						?? document.documentElement
+					dest.dispatchEvent(
+						new WheelEvent('wheel', {
+							deltaX: e.deltaX,
+							deltaY: e.deltaY,
+							deltaMode: e.deltaMode,
+							bubbles: true,
+							cancelable: true,
+						}),
+					)
+				},
+				{ passive: false },
+			)
+		}
 	}, [])
 
 	return (
-		<div
-			ref={containerRef}
+		<Spline
 			className={className}
-			style={{ width: '100%', height: '100%' }}
-		>
-			<Spline
-				scene={scene}
-				style={{
-					width: '100%',
-					height: '100%',
-				}}
-			/>
-		</div>
+			scene={scene}
+			style={style}
+			onLoad={handleLoad}
+		/>
 	)
 }

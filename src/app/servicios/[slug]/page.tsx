@@ -4,6 +4,7 @@ import ServicePage from '@/components/service-page'
 import WebDevPage from '@/components/web-dev-page'
 import NoisegraphPage from '@/components/noisegraph-page'
 import IaPage from '@/components/ia-page'
+import PressPage from '@/components/press-page'
 import { SERVICES } from '@/lib/services'
 
 interface ServiceRouteParams {
@@ -19,7 +20,9 @@ export default function ServiceDetailPage({
 }: {
 	params: ServiceRouteParams
 }) {
-	const service = SERVICES.find((item) => item.slug === params.slug)
+	const service = SERVICES.find(
+		(item) => item.slug === params.slug,
+	)
 	if (!service) notFound()
 
 	if (service.slug === 'desarrollo-web') {
@@ -32,6 +35,10 @@ export default function ServiceDetailPage({
 
 	if (service.slug === 'ia-aplicada') {
 		return <IaPage />
+	}
+
+	if (service.slug === 'gabinete-de-prensa') {
+		return <PressPage />
 	}
 
 	return (

@@ -2,9 +2,9 @@ import { AnimatedLogo } from '@/components/animated-logo'
 import { HeroIntro } from '@/components/hero-intro'
 import { HomeShowreel } from '@/components/home-showreel'
 import { HomeFamily } from '@/components/home-family'
-import { HomeCarousel } from '@/components/home-carousel'
 import { HomeFooter } from '@/components/home-footer'
 import IaSplineViewer from '@/components/ia-spline-viewer'
+import PlatePreview from '@/components/plate-preview'
 
 export default function HomePage() {
 	return (
@@ -24,10 +24,24 @@ export default function HomePage() {
 					<IaSplineViewer
 						className="SliceHomeArtists-spline"
 						scene="https://prod.spline.design/QXi9B-cOSBcQ8hPw/scene.splinecode"
+						style={{
+							position: 'absolute',
+							width: '500px',
+							height: '500px',
+							top: '50%',
+							left: '50%',
+							transform:
+								'translate(-50%, -50%) '
+								+ 'scale(0.561)',
+						}}
+					/>
+				}
+				webDevMedia={
+					<PlatePreview
+						className="SliceHomeArtists-mediaVisual"
 					/>
 				}
 			/>
-			<HomeCarousel />
 			<HomeFooter />
 		</>
 	)

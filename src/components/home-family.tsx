@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -8,15 +8,18 @@ import { SERVICES } from '@/lib/services'
 
 interface HomeFamilyProps {
 	iaMedia?: ReactNode
+	webDevMedia?: ReactNode
 }
 
-export function HomeFamily({ iaMedia }: HomeFamilyProps) {
+export function HomeFamily({ iaMedia, webDevMedia }: HomeFamilyProps) {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const [isNavigating, setIsNavigating] = useState(false)
 	const [currentVideoSrc, setCurrentVideoSrc] = useState(
 		SERVICES[0].previewVideo,
 	)
 	const [isTransitioningVideo, setIsTransitioningVideo] = useState(false)
+	const listRef = useRef<HTMLElement>(null)
+	const [thumbOffset, setThumbOffset] = useState(0)
 	const fallbackVideoSrc = '/videos/showreel.mp4'
 	const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
 		null,
@@ -26,11 +29,9 @@ export function HomeFamily({ iaMedia }: HomeFamilyProps) {
 	const router = useRouter()
 	const activeService = SERVICES[activeIndex]
 	const isIaServiceActive = activeService.slug === 'ia-aplicada'
+	const isWebDevActive = activeService.slug === 'desarrollo-web'
 	const activePreviewVideo = activeService.previewVideo
-	const mediaAspectRatio =
-		activePreviewVideo === '/videos/DESAROOLLOWEBDEFINITIVO2.mov'
-			? '1404 / 1834'
-			: '410 / 512'
+	const mediaAspectRatio = '410 / 512'
 
 	useEffect(() => {
 		setIsNavigating(false)
@@ -38,7 +39,10 @@ export function HomeFamily({ iaMedia }: HomeFamilyProps) {
 
 	useEffect(() => {
 		const nextService = SERVICES[activeIndex]
-		if (nextService.slug === 'ia-aplicada') {
+		if (
+			nextService.slug === 'ia-aplicada' ||
+			nextService.slug === 'desarrollo-web'
+		) {
 			setIsTransitioningVideo(false)
 			return
 		}
@@ -88,6 +92,20 @@ export function HomeFamily({ iaMedia }: HomeFamilyProps) {
 		}
 	}, [activeIndex, currentVideoSrc])
 
+	const updateThumbOffset = useCallback(() => {
+		const nav = listRef.current
+		if (!nav) return
+		const item = nav.children[activeIndex] as HTMLElement | undefined
+		if (!item) return
+		setThumbOffset(item.offsetTop)
+	}, [activeIndex])
+
+	useEffect(() => {
+		updateThumbOffset()
+		window.addEventListener('resize', updateThumbOffset)
+		return () => window.removeEventListener('resize', updateThumbOffset)
+	}, [updateThumbOffset])
+
 	useEffect(() => {
 		return () => {
 			if (transitionTimeoutRef.current) {
@@ -126,34 +144,46 @@ export function HomeFamily({ iaMedia }: HomeFamilyProps) {
 				<div className="SliceHomeArtists-content">
 					<div className="SliceHomeArtists-mediaArea">
 						<div
-							className="SliceHomeArtists-mediaCard"
+							className={`SliceHomeArtists-mediaCard${
+								isIaServiceActive ? ' --is-spline' : ''
+							}`}
 							style={{ aspectRatio: mediaAspectRatio }}
 						>
 							<div
 								className={`SliceHomeArtists-mediaStage${
+									isIaServiceActive ? ' --is-spline' : ''
+								}${
 									isTransitioningVideo ? ' --is-transitioning' : ''
 								}`}
 							>
-								{isIaServiceActive ? (
-									iaMedia
-								) : (
-									<video
-										key={currentVideoSrc}
-										className="SliceHomeArtists-mediaVisual"
-										src={currentVideoSrc}
-										preload="metadata"
-										autoPlay
-										loop
-										muted
-										playsInline
+							{isIaServiceActive ? (
+								<>
+									{iaMedia}
+									<div
+										className="SliceHomeArtists-splineOverlay"
+										aria-hidden="true"
 									/>
-								)}
+								</>
+							) : isWebDevActive ? (
+								webDevMedia
+							) : (
+								<video
+									key={currentVideoSrc}
+									className="SliceHomeArtists-mediaVisual"
+									src={currentVideoSrc}
+									preload="metadata"
+									autoPlay
+									loop
+									muted
+									playsInline
+								/>
+							)}
 							</div>
 						</div>
 					</div>
 
 					<div className="SliceHomeArtists-listWrap">
-						<nav className="SliceHomeArtists-list" aria-label="Servicios">
+						<nav ref={listRef} className="SliceHomeArtists-list" aria-label="Servicios">
 							{SERVICES.map((service, index) => (
 								<Link
 									key={service.title}
@@ -179,7 +209,7 @@ export function HomeFamily({ iaMedia }: HomeFamilyProps) {
 							<div
 								className="SliceHomeArtists-railThumb"
 								style={{
-									transform: `translateY(${activeIndex * 72}px)`,
+									transform: `translateY(${thumbOffset}px)`,
 								}}
 							>
 								<span />

@@ -5,11 +5,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
-	{ href: '/proyectos', label: 'Proyectos' },
-	{ href: '/artists', label: 'Artists' },
-	{ href: '/categories', label: 'Categories' },
-	{ href: '/about', label: 'About' },
-	{ href: '/contact', label: 'Contact' },
+	{ href: '/servicios/produccion-audiovisual', label: 'Producción' },
+	{ href: '/servicios/desarrollo-web', label: 'Desarrollo Web' },
+	{ href: '/servicios/ia-aplicada', label: 'IA Aplicada' },
+	{ href: '/servicios/gabinete-de-prensa', label: 'Prensa' },
 ]
 
 export function Navigation() {
@@ -62,28 +61,6 @@ export function Navigation() {
 	return (
 		<header className="Header">
 			<div className="Header-wrapper">
-				{/* Logo */}
-				<Link href="/" className="Header-logo">
-					<div className="Header-logoIcon">
-						<svg viewBox="0 0 24 26" fill="none">
-							<path
-								d="M0 26V0h14.4c5.3 0 9.6 4.3 9.6
-								9.6S19.7 19.2 14.4 19.2H7.2V26H0z"
-								fill="currentColor"
-							/>
-							<rect
-								className="square"
-								x="15.6"
-								y="0"
-								width="8.4"
-								height="8.4"
-								rx="1.5"
-								fill="#ff243a"
-							/>
-						</svg>
-					</div>
-				</Link>
-
 				{/* Desktop nav */}
 				<nav
 					ref={navRef}
@@ -115,60 +92,6 @@ export function Navigation() {
 						</Link>
 					))}
 				</nav>
-
-				{/* Theme toggle */}
-				<button className="Header-theme" aria-label="Toggle theme">
-					<div style={{ display: 'flex', position: 'relative' }}>
-						<div
-							style={{
-								position: 'relative',
-								left: '3px',
-								zIndex: 5,
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								height: '14px',
-								width: '14px',
-							}}
-						>
-							<span
-								style={{
-									display: 'block',
-									width: '12px',
-									height: '12px',
-									borderRadius: '9999px',
-									backgroundColor: '#5e5b52',
-									transition:
-										'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-								}}
-							/>
-						</div>
-						<div
-							style={{
-								position: 'relative',
-								left: '-3px',
-								zIndex: 10,
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								height: '14px',
-								width: '14px',
-							}}
-						>
-							<span
-								style={{
-									display: 'block',
-									width: '12px',
-									height: '12px',
-									borderRadius: '9999px',
-									backgroundColor: '#eee',
-									transition:
-										'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-								}}
-							/>
-						</div>
-					</div>
-				</button>
 
 				{/* Mobile menu button */}
 				<button
