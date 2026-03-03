@@ -111,6 +111,7 @@ function handlePillHover(
 
 export default function ChatWidget() {
 	const [isOpen, setIsOpen] = useState(false)
+	const [isMobileViewport, setIsMobileViewport] = useState(false)
 	const [showContactHint, setShowContactHint] = useState(true)
 	const [messages, setMessages] = useState<ChatMessage[]>(
 		[],
@@ -136,6 +137,22 @@ export default function ChatWidget() {
 	const hintCharsRef = useRef<Array<HTMLSpanElement | null>>([])
 	const isFirstOpen = useRef(true)
 	const firstServiceRef = useRef('')
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia('(max-width: 768px)')
+		const updateViewport = () => {
+			setIsMobileViewport(mediaQuery.matches)
+		}
+
+		updateViewport()
+		mediaQuery.addEventListener('change', updateViewport)
+		return () => {
+			mediaQuery.removeEventListener(
+				'change',
+				updateViewport,
+			)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (isOpen || !showContactHint) return
@@ -259,8 +276,10 @@ export default function ChatWidget() {
 				])
 			}, 300)
 		}
-		setTimeout(() => inputRef.current?.focus(), 350)
-	}, [])
+		if (!isMobileViewport) {
+			setTimeout(() => inputRef.current?.focus(), 350)
+		}
+	}, [isMobileViewport])
 
 	const closePanel = useCallback(() => {
 		const panel = panelRef.current
@@ -611,11 +630,22 @@ export default function ChatWidget() {
 					ref={panelRef}
 					style={{
 						position: 'fixed',
-						top: '50%',
-						right: '24px',
-						transform: 'translateY(-50%)',
-						width: '360px',
-						maxHeight: '480px',
+						top: isMobileViewport ? 'auto' : '50%',
+						bottom: isMobileViewport
+							? 'max(12px, env(safe-area-inset-bottom))'
+							: 'auto',
+						left: isMobileViewport ? '12px' : 'auto',
+						right: isMobileViewport ? '12px' : '24px',
+						transform: isMobileViewport
+							? 'none'
+							: 'translateY(-50%)',
+						width: isMobileViewport
+							? 'calc(100vw - 24px)'
+							: '360px',
+						maxWidth: isMobileViewport ? '460px' : '360px',
+						maxHeight: isMobileViewport
+							? 'min(70dvh, 620px)'
+							: '480px',
 						zIndex: 9999,
 						borderRadius: '20px',
 						overflow: 'hidden',
@@ -629,7 +659,9 @@ export default function ChatWidget() {
 							'0 8px 40px rgba(0, 0, 0, 0.3)',
 						display: 'flex',
 						flexDirection: 'column',
-						transformOrigin: 'center right',
+						transformOrigin: isMobileViewport
+							? 'bottom right'
+							: 'center right',
 					}}
 				>
 					{/* Header */}
@@ -726,8 +758,12 @@ export default function ChatWidget() {
 							flexDirection: 'column',
 							gap: '8px',
 							scrollbarWidth: 'none',
-							minHeight: '280px',
-							maxHeight: '340px',
+							minHeight: isMobileViewport
+								? '240px'
+								: '280px',
+							maxHeight: isMobileViewport
+								? '56dvh'
+								: '340px',
 						}}
 					>
 						{messages.map((msg, i) => {
@@ -974,7 +1010,9 @@ export default function ChatWidget() {
 									border: 'none',
 									outline: 'none',
 									padding: '5px 0',
-									fontSize: '13px',
+									fontSize: isMobileViewport
+										? '16px'
+										: '13px',
 									fontFamily:
 										'system-ui, '
 										+ '-apple-system, '

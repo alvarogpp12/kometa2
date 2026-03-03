@@ -39,33 +39,69 @@ export interface CloudinaryImageUrls {
 	pressHero4: string
 }
 
+function optimizeCloudinaryVideo(url: string): string {
+	if (!url.includes('/res.cloudinary.com/')) {
+		return url
+	}
+	return url.replace(
+		'/video/upload/',
+		'/video/upload/f_auto,q_auto:good,vc_auto/',
+	)
+}
+
 export const VIDEO_URLS: CloudinaryVideoUrls = {
 	adealfar:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544832/adealfar_ukgjvq.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544832/adealfar_ukgjvq.mp4',
+		),
 	gonzalezYGonzalez:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544883/gonzalezygonzalez_wg2klc.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544883/gonzalezygonzalez_wg2klc.mp4',
+		),
 	webTaranjales:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544856/webtaranjales_iiwemo.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544856/webtaranjales_iiwemo.mp4',
+		),
 	doMadrid:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571020/vinos-de-madrid/do_madrid_v1_1080p.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571020/vinos-de-madrid/do_madrid_v1_1080p.mp4',
+		),
 	cuandoHarryEncontroAMeghan:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571175/vinos-de-madrid/cuando_harry_encontro_a_meghan_v01_1080p.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571175/vinos-de-madrid/cuando_harry_encontro_a_meghan_v01_1080p.mp4',
+		),
 	reel1:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544867/REEL_1_dh1lhh.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544867/REEL_1_dh1lhh.mp4',
+		),
 	reel3:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544822/REEL_3_wpaqew.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544822/REEL_3_wpaqew.mp4',
+		),
 	desarrolloWeb:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544636/DESAROOLLOWEBDEFINITIVO2_nzg7sp.mov',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544636/DESAROOLLOWEBDEFINITIVO2_nzg7sp.mov',
+		),
 	video20260216:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544618/VIDEO-2026-02-16-22-52-32_pd7wsa.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544618/VIDEO-2026-02-16-22-52-32_pd7wsa.mp4',
+		),
 	disenoAMedida:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544571/diseno-a-medida_jatvo2.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544571/diseno-a-medida_jatvo2.mp4',
+		),
 	rendimientoExtremo:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544580/rendimiento-extremo_brshzw.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544580/rendimiento-extremo_brshzw.mp4',
+		),
 	escalableDiaUno:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544585/escalable-desde-dia-uno_hmklnu.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544585/escalable-desde-dia-uno_hmklnu.mp4',
+		),
 	sanvinxLepicurien:
-		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544754/sanvin_x_Le%CC%81picurien_ensxbg.mp4',
+		optimizeCloudinaryVideo(
+			'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544754/sanvin_x_Le%CC%81picurien_ensxbg.mp4',
+		),
 }
 
 export const IMAGE_URLS: CloudinaryImageUrls = {

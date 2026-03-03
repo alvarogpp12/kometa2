@@ -580,6 +580,11 @@
 	.Header-homeMobileBt {
 		display: flex;
 	}
+
+	.Header-chatBt,
+	.Header-homeMobileBt {
+		transform: translateY(-15px);
+	}
 }
 
 /* Hero Intro */
@@ -1029,6 +1034,7 @@
 }
 
 .SliceHomeArtists-splineOverlay {
+	display: none;
 	position: absolute;
 	right: 50px;
 	bottom: 132px;
@@ -1274,6 +1280,7 @@
 	}
 
 	.SliceHomeArtists-splineOverlay {
+		display: block;
 		right: 1.2rem;
 		bottom: 1.2rem;
 		width: 10.4rem;
