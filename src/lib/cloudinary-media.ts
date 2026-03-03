@@ -2,6 +2,8 @@ export interface CloudinaryVideoUrls {
 	adealfar: string
 	gonzalezYGonzalez: string
 	webTaranjales: string
+	doMadrid: string
+	cuandoHarryEncontroAMeghan: string
 	reel1: string
 	reel3: string
 	desarrolloWeb: string
@@ -40,6 +42,10 @@ export const VIDEO_URLS: CloudinaryVideoUrls = {
 		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544883/gonzalezygonzalez_wg2klc.mp4',
 	webTaranjales:
 		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544856/webtaranjales_iiwemo.mp4',
+	doMadrid:
+		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571020/vinos-de-madrid/do_madrid_v1_1080p.mp4',
+	cuandoHarryEncontroAMeghan:
+		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772571175/vinos-de-madrid/cuando_harry_encontro_a_meghan_v01_1080p.mp4',
 	reel1:
 		'https://res.cloudinary.com/dkgv4tw3q/video/upload/v1772544867/REEL_1_dh1lhh.mp4',
 	reel3:

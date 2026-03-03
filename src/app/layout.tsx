@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { Navigation } from '@/components/navigation'
-import { CustomCursor } from '@/components/custom-cursor'
 import { Preloader } from '@/components/preloader'
 import { PageTransition } from '@/components/page-transition'
 import { LenisProvider } from '@/components/LenisProvider'
 import ChatWidget from '@/components/chat-widget'
+import { HomeFooter } from '@/components/home-footer'
 
 const season = localFont({
 	src: '../../public/fonts/season-500.woff2',
@@ -31,10 +31,10 @@ export default function RootLayout({
 			<body>
 				<Preloader />
 				<PageTransition />
-				<CustomCursor />
 				<LenisProvider>
 					<div className="Site-pageInner">
 						{children}
+						<HomeFooter />
 					</div>
 				</LenisProvider>
 				<Navigation />

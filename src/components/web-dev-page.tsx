@@ -460,34 +460,6 @@ export default function WebDevPage() {
 				</div>
 			</section>
 
-			{/* ── CTA ── */}
-			<section className="WebDevPage-cta">
-				<div className="wrapper-1290">
-					<div
-						className="WebDevPage-ctaInner"
-						data-reveal
-					>
-						<p className="WebDevPage-ctaText">
-							¿Tienes un proyecto en mente?
-						</p>
-						<button
-							type="button"
-							className="AppButton"
-							data-cursor-hover
-							onClick={() =>
-								window.dispatchEvent(
-									new Event('openKevinChat'),
-								)
-							}
-						>
-							<span className="pl-square" />
-							<span className="AppButton-title">
-								Hablemos
-							</span>
-						</button>
-					</div>
-				</div>
-			</section>
 		</main>
 	)
 }

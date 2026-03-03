@@ -320,25 +320,6 @@ export default function IaPage() {
 				</div>
 			</section>
 
-			{/* ── CTA ── */}
-			<section className="IaPage-cta">
-				<div className="wrapper-1290">
-					<div className="IaPage-ctaInner" data-reveal>
-						<button
-							type="button"
-							className="IaPage-ctaButton"
-							data-cursor-hover
-							onClick={() =>
-								window.dispatchEvent(
-									new Event('openKevinChat'),
-								)
-							}
-						>
-							<span>Hablemos</span>
-						</button>
-					</div>
-				</div>
-			</section>
 		</main>
 	)
 }

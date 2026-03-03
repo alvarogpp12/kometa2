@@ -45,15 +45,76 @@ const QUICK_OPTIONS = [
 	'Gabinete de Prensa',
 	'Solicitar presupuesto',
 ]
+const CONTACT_HINT_TEXT = 'Contactanos'
+
+const ACTION_REGEX = /<<ACTION:(.+?)>>/g
+const MEETING_REGEX = /<<MEETING:(.+?)>>/g
 
 function isContactQuery(text: string): boolean {
 	const lower = text.toLowerCase()
 	return CONTACT_KEYWORDS.some((kw) => lower.includes(kw))
 }
 
+function parseActions(text: string): {
+	clean: string
+	actions: string[]
+	meeting: string | null
+} {
+	const actions: string[] = []
+	let meeting: string | null = null
+
+	let match: RegExpExecArray | null
+	ACTION_REGEX.lastIndex = 0
+	while ((match = ACTION_REGEX.exec(text)) !== null) {
+		actions.push(match[1])
+	}
+
+	MEETING_REGEX.lastIndex = 0
+	match = MEETING_REGEX.exec(text)
+	if (match) {
+		meeting = match[1]
+	}
+
+	const clean = text
+		.replace(ACTION_REGEX, '')
+		.replace(MEETING_REGEX, '')
+		.trim()
+
+	return { clean, actions, meeting }
+}
+
+const pillStyle: React.CSSProperties = {
+	padding: '7px 14px',
+	borderRadius: '999px',
+	border: '1px solid rgba(255, 255, 255, 0.15)',
+	background: 'rgba(255, 255, 255, 0.06)',
+	color: 'rgba(255, 255, 255, 0.85)',
+	fontSize: '12px',
+	fontFamily: 'system-ui, -apple-system, sans-serif',
+	cursor: 'pointer',
+	transition: 'all 0.15s',
+	whiteSpace: 'nowrap',
+}
+
+function handlePillHover(
+	e: React.MouseEvent<HTMLButtonElement>,
+	enter: boolean,
+) {
+	const t = e.currentTarget
+	t.style.background = enter
+		? 'rgba(255, 255, 255, 0.15)'
+		: 'rgba(255, 255, 255, 0.06)'
+	t.style.borderColor = enter
+		? 'rgba(255, 255, 255, 0.3)'
+		: 'rgba(255, 255, 255, 0.15)'
+}
+
 export default function ChatWidget() {
 	const [isOpen, setIsOpen] = useState(false)
-	const [messages, setMessages] = useState<ChatMessage[]>([])
+	const [showContactHint, setShowContactHint] = useState(true)
+	const [messages, setMessages] = useState<ChatMessage[]>(
+		[],
+	)
 	const [input, setInput] = useState('')
 	const [isStreaming, setIsStreaming] = useState(false)
 	const [phase, setPhase] = useState<ChatPhase>('idle')
@@ -63,25 +124,97 @@ export default function ChatWidget() {
 	})
 	const [showQuickOptions, setShowQuickOptions] =
 		useState(true)
+	const [actionButtons, setActionButtons] = useState<
+		string[]
+	>([])
 
 	const panelRef = useRef<HTMLDivElement>(null)
 	const scrollRef = useRef<HTMLDivElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
-
+	const hintRef = useRef<HTMLDivElement>(null)
+	const hintArrowRef = useRef<HTMLSpanElement>(null)
+	const hintCharsRef = useRef<Array<HTMLSpanElement | null>>([])
 	const isFirstOpen = useRef(true)
+	const firstServiceRef = useRef('')
+
+	useEffect(() => {
+		if (isOpen || !showContactHint) return
+		if (
+			!hintRef.current
+			|| !hintArrowRef.current
+		) {
+			return
+		}
+		const hintChars = hintCharsRef.current.filter(
+			(char): char is HTMLSpanElement => Boolean(char),
+		)
+		if (hintChars.length === 0) return
+
+		const fadeTween = gsap.fromTo(
+			hintRef.current,
+			{ autoAlpha: 0, y: 8 },
+			{
+				autoAlpha: 1,
+				y: 0,
+				duration: 0.35,
+				ease: 'power2.out',
+			},
+		)
+
+		const arrowTween = gsap.fromTo(
+			hintArrowRef.current,
+			{ x: 0 },
+			{
+				x: 7,
+				duration: 0.75,
+				ease: 'sine.inOut',
+				repeat: -1,
+				yoyo: true,
+			},
+		)
+
+		gsap.set(hintChars, {
+			color: '#050505',
+		})
+
+		const textSweepTween = gsap.timeline({
+			repeat: -1,
+			repeatDelay: 0.1,
+		})
+		textSweepTween
+			.to(hintChars, {
+				color: '#d40000',
+				duration: 0.07,
+				ease: 'power1.inOut',
+				stagger: 0.05,
+			})
+			.to(hintChars, {
+				color: '#050505',
+				duration: 0.08,
+				ease: 'power1.out',
+				stagger: 0.05,
+			})
+			.set(hintChars, {
+				color: '#050505',
+			})
+
+		return () => {
+			fadeTween.kill()
+			arrowTween.kill()
+			textSweepTween.kill()
+		}
+	}, [isOpen, showContactHint])
 
 	useEffect(() => {
 		scrollRef.current?.scrollTo({
 			top: scrollRef.current.scrollHeight,
 			behavior: 'smooth',
 		})
-	}, [messages])
+	}, [messages, actionButtons])
 
 	useEffect(() => {
 		const handleOpenChat = () => {
-			if (!isOpen) {
-				openPanel()
-			}
+			if (!isOpen) openPanel()
 		}
 		window.addEventListener(
 			'openKevinChat',
@@ -96,6 +229,7 @@ export default function ChatWidget() {
 
 	const openPanel = useCallback(() => {
 		const panel = panelRef.current
+		setShowContactHint(false)
 		setIsOpen(true)
 		if (panel) {
 			gsap.fromTo(
@@ -145,11 +279,8 @@ export default function ChatWidget() {
 	}, [])
 
 	const togglePanel = useCallback(() => {
-		if (!isOpen) {
-			openPanel()
-		} else {
-			closePanel()
-		}
+		if (!isOpen) openPanel()
+		else closePanel()
 	}, [isOpen, openPanel, closePanel])
 
 	const addAssistantMessage = useCallback(
@@ -162,16 +293,38 @@ export default function ChatWidget() {
 		[],
 	)
 
+	const saveMeeting = useCallback(
+		(dateText: string) => {
+			if (!lead.email) return
+			fetch('/api/leads/meeting', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					name: lead.name,
+					email: lead.email,
+					service: firstServiceRef.current,
+					meeting: dateText,
+				}),
+			}).catch(() => {})
+		},
+		[lead],
+	)
+
 	const streamChat = useCallback(
 		async (
 			allMessages: ChatMessage[],
 			currentLead?: Lead,
 		) => {
 			setIsStreaming(true)
+			setActionButtons([])
 			setMessages((prev) => [
 				...prev,
 				{ role: 'assistant', content: '' },
 			])
+
+			let fullText = ''
 
 			try {
 				const res = await fetch('/api/chat', {
@@ -225,14 +378,14 @@ export default function ChatWidget() {
 							const { text } =
 								JSON.parse(payload)
 							if (text) {
+								fullText += text
+								const { clean } =
+									parseActions(fullText)
 								setMessages((prev) => {
 									const next = [...prev]
-									const last =
-										next[next.length - 1]
 									next[next.length - 1] = {
-										...last,
-										content:
-											last.content + text,
+										role: 'assistant',
+										content: clean,
 									}
 									return next
 								})
@@ -255,9 +408,29 @@ export default function ChatWidget() {
 				})
 			}
 
+			const { clean, actions, meeting } =
+				parseActions(fullText)
+
+			setMessages((prev) => {
+				const next = [...prev]
+				next[next.length - 1] = {
+					role: 'assistant',
+					content: clean,
+				}
+				return next
+			})
+
+			if (actions.length > 0) {
+				setActionButtons(actions)
+			}
+
+			if (meeting) {
+				saveMeeting(meeting)
+			}
+
 			setIsStreaming(false)
 		},
-		[],
+		[saveMeeting],
 	)
 
 	const sendText = useCallback(
@@ -265,6 +438,7 @@ export default function ChatWidget() {
 			if (isStreaming) return
 
 			setShowQuickOptions(false)
+			setActionButtons([])
 
 			const userMsg: ChatMessage = {
 				role: 'user',
@@ -272,6 +446,9 @@ export default function ChatWidget() {
 			}
 
 			if (phase === 'idle') {
+				if (!firstServiceRef.current) {
+					firstServiceRef.current = text
+				}
 				setMessages((prev) => [...prev, userMsg])
 
 				if (isContactQuery(text)) {
@@ -324,6 +501,19 @@ export default function ChatWidget() {
 				const firstUserMsg = messages.find(
 					(m) => m.role === 'user',
 				)
+
+				fetch('/api/leads', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						name: lead.name,
+						email: text,
+						service: firstServiceRef.current,
+					}),
+				}).catch(() => {})
+
 				if (firstUserMsg) {
 					streamChat(
 						[
@@ -380,6 +570,21 @@ export default function ChatWidget() {
 			addAssistantMessage,
 			streamChat,
 		],
+	)
+
+	const handleActionClick = useCallback(
+		(action: string) => {
+			if (action === 'Llamar ahora') {
+				window.open('tel:649842031', '_self')
+				return
+			}
+			sendText(
+				action === 'Agendar reunión'
+					? 'Quiero agendar una reunión'
+					: action,
+			)
+		},
+		[sendText],
 	)
 
 	const handleSubmit = useCallback(
@@ -596,7 +801,7 @@ export default function ChatWidget() {
 							)
 						})}
 
-						{/* Quick options */}
+						{/* Quick options (first open) */}
 						{showQuickOptions && (
 							<div
 								style={{
@@ -637,65 +842,25 @@ export default function ChatWidget() {
 														option,
 													)
 												}
-												style={{
-													padding:
-														'7px 14px',
-													borderRadius:
-														'999px',
-													border:
-														'1px solid '
-														+ 'rgba(255, '
-														+ '255, 255, '
-														+ '0.15)',
-													background:
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.06)',
-													color:
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.85)',
-													fontSize:
-														'12px',
-													fontFamily:
-														'system-ui, '
-														+ '-apple-system, '
-														+ 'sans-serif',
-													cursor:
-														'pointer',
-													transition:
-														'all 0.15s',
-													whiteSpace:
-														'nowrap',
-												}}
+												style={
+													pillStyle
+												}
 												onMouseEnter={(
 													e,
-												) => {
-													const t =
-														e.currentTarget
-													t.style.background =
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.15)'
-													t.style.borderColor =
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.3)'
-												}}
+												) =>
+													handlePillHover(
+														e,
+														true,
+													)
+												}
 												onMouseLeave={(
 													e,
-												) => {
-													const t =
-														e.currentTarget
-													t.style.background =
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.06)'
-													t.style.borderColor =
-														'rgba(255, '
-														+ '255, 255, '
-														+ '0.15)'
-												}}
+												) =>
+													handlePillHover(
+														e,
+														false,
+													)
+												}
 											>
 												{option}
 											</button>
@@ -704,6 +869,69 @@ export default function ChatWidget() {
 								</div>
 							</div>
 						)}
+
+						{/* Action buttons from Kevin */}
+						{actionButtons.length > 0 &&
+							!isStreaming && (
+								<div
+									style={{
+										display: 'flex',
+										flexWrap: 'wrap',
+										gap: '6px',
+										marginTop: '4px',
+									}}
+								>
+									{actionButtons.map(
+										(action) => (
+											<button
+												key={action}
+												type="button"
+												onClick={() =>
+													handleActionClick(
+														action,
+													)
+												}
+												style={{
+													...pillStyle,
+													background:
+														action ===
+														'Llamar ahora'
+															? 'rgba(34, 197, '
+																+ '94, 0.15)'
+															: pillStyle.background,
+													borderColor:
+														action ===
+														'Llamar ahora'
+															? 'rgba(34, 197, '
+																+ '94, 0.3)'
+															: pillStyle.borderColor?.toString(),
+												}}
+												onMouseEnter={(
+													e,
+												) =>
+													handlePillHover(
+														e,
+														true,
+													)
+												}
+												onMouseLeave={(
+													e,
+												) =>
+													handlePillHover(
+														e,
+														false,
+													)
+												}
+											>
+												{action ===
+												'Llamar ahora'
+													? '📞 Llamar ahora'
+													: `📅 ${action}`}
+											</button>
+										),
+									)}
+								</div>
+							)}
 					</div>
 
 					{/* Input */}
@@ -848,6 +1076,66 @@ export default function ChatWidget() {
 				aria-label="Abrir chat con Kevin"
 				aria-hidden={isOpen}
 			>
+				{showContactHint && !isOpen && (
+					<div
+						ref={hintRef}
+						style={{
+							position: 'absolute',
+							top: '50%',
+							right: 'calc(100% + 12px)',
+							transform: 'translateY(-50%)',
+							display: 'flex',
+							alignItems: 'center',
+							gap: '8px',
+							color:
+								'rgba(255, 255, 255, 0.92)',
+							fontSize: '2.2rem',
+							fontFamily: 'var(--font-custom)',
+							fontWeight: 500,
+							lineHeight: 1,
+							letterSpacing: '-0.03em',
+							whiteSpace: 'nowrap',
+							pointerEvents: 'none',
+						}}
+						aria-hidden="true"
+					>
+						<span
+							ref={hintArrowRef}
+							style={{
+								display: 'inline-flex',
+								fontSize: '14px',
+								lineHeight: 1,
+								color: '#050505',
+							}}
+						>
+							→
+						</span>
+						<span
+							style={{
+								display: 'inline-flex',
+								gap: '0',
+							}}
+						>
+							{CONTACT_HINT_TEXT.split('').map(
+								(char, index) => (
+									<span
+										key={`${char}-${index}`}
+										ref={(element) => {
+											hintCharsRef.current[index] =
+												element
+										}}
+										style={{
+											display: 'inline-block',
+											color: '#050505',
+										}}
+									>
+										{char}
+									</span>
+								),
+							)}
+						</span>
+					</div>
+				)}
 				<Spline
 					scene="https://prod.spline.design/QXi9B-cOSBcQ8hPw/scene.splinecode"
 					style={{

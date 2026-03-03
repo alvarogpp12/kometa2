@@ -56,7 +56,7 @@ export function HomeFooter() {
 						>
 							si tienes una visión ambiciosa,
 							<br />
-							juntos la constreuimos
+							juntos la construiremos
 						</p>
 
 						<p
@@ -75,24 +75,6 @@ export function HomeFooter() {
 							superficial.
 						</p>
 
-						<button
-							type="button"
-							className="AppButton"
-							onClick={() =>
-								window.dispatchEvent(
-									new Event('openKevinChat'),
-								)
-							}
-							style={{
-								opacity: inView ? 1 : 0,
-								transition: 'opacity 0.6s ease 0.3s',
-							}}
-						>
-							<span className="pl-square" />
-							<span className="AppButton-title">
-								Agendar reunión
-							</span>
-						</button>
 					</div>
 
 					{/* Nav links */}
@@ -174,34 +156,6 @@ export function HomeFooter() {
 								</g>
 							</g>
 						</svg>
-					</div>
-
-					{/* Socials */}
-					<div
-						style={{
-							display: 'flex',
-							gap: '2rem',
-							fontSize: '13px',
-							textTransform: 'uppercase',
-							marginTop: '2rem',
-							opacity: inView ? 1 : 0,
-							transition: 'opacity 0.6s ease 0.5s',
-						}}
-					>
-						<a
-							href="https://instagram.com"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Instagram
-						</a>
-						<a
-							href="https://linkedin.com"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Linkedin
-						</a>
 					</div>
 
 					{/* Credits */}

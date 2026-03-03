@@ -20,39 +20,26 @@ export function HeroIntro() {
 					'opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s',
 			}}
 		>
-			<p className="HeroIntro-title">
-				Transformamos tus ideas en proyectos reales.
-				<br />
-				<span className="HeroIntro-words">
-					<span className="HeroIntro-word HeroIntro-word--full">
-						Estrategia
-					</span>{' '}
-					<span className="HeroIntro-word HeroIntro-word--soft">
-						Produccion
-					</span>{' '}
-					<span className="HeroIntro-word HeroIntro-word--full">
-						Tecnologia
-					</span>{' '}
-					<span className="HeroIntro-word HeroIntro-word--soft">
-						Presencia
+			<div className="HeroIntro-top">
+				<p className="HeroIntro-title">
+					<span className="HeroIntro-line HeroIntro-line--intro">
+						Transformamos tus ideas en proyectos reales.
 					</span>
-				</span>
-			</p>
-			<div>
-				<button
-					type="button"
-					className="AppButton"
-					onClick={() =>
-						window.dispatchEvent(
-							new Event('openKevinChat'),
-						)
-					}
-				>
-					<span className="pl-square" />
-					<span className="AppButton-title">
-						Read More
+					<span className="HeroIntro-line HeroIntro-line--words">
+						<span className="HeroIntro-word HeroIntro-word--full">
+							Estrategia
+						</span>{' '}
+						<span className="HeroIntro-word HeroIntro-word--soft">
+							Produccion
+						</span>{' '}
+						<span className="HeroIntro-word HeroIntro-word--full">
+							Tecnologia
+						</span>{' '}
+						<span className="HeroIntro-word HeroIntro-word--soft">
+							Presencia
+						</span>
 					</span>
-				</button>
+				</p>
 			</div>
 		</div>
 	)

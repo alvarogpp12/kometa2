@@ -10,6 +10,7 @@ interface ProjectItem {
 	slug: string
 	video: string
 	aspect: '16:9' | '9:16'
+	instagramQuery: string
 }
 
 const PROJECTS: ProjectItem[] = [
@@ -17,37 +18,42 @@ const PROJECTS: ProjectItem[] = [
 		name: 'Adealfar',
 		slug: 'adealfar',
 		video: VIDEO_URLS.adealfar,
-		aspect: '16:9',
-	},
-	{
-		name: 'González y González',
-		slug: 'gonzalez-y-gonzalez',
-		video: VIDEO_URLS.gonzalezYGonzalez,
 		aspect: '9:16',
+		instagramQuery: 'Adealfar',
 	},
 	{
 		name: 'Los Taranjales',
 		slug: 'los-taranjales',
 		video: VIDEO_URLS.webTaranjales,
 		aspect: '16:9',
+		instagramQuery: 'Los Taranjales',
 	},
 	{
-		name: 'ARS Living Sevilla',
-		slug: 'ars-living-sevilla',
-		video: VIDEO_URLS.video20260216,
+		name: 'González y González',
+		slug: 'gonzalez-y-gonzalez',
+		video: VIDEO_URLS.gonzalezYGonzalez,
 		aspect: '9:16',
+		instagramQuery: 'González y González',
 	},
 	{
-		name: 'Sanvinx L\'Épicurien',
+		name: 'Sanvin x L´epicurien',
 		slug: 'sanvinx-lepicurien',
 		video: VIDEO_URLS.sanvinxLepicurien,
+		aspect: '9:16',
+		instagramQuery: 'Sanvin Lepicurien',
+	},
+	{
+		name: 'D.O Madrid',
+		slug: 'campana-vinos-de-madrid',
+		video: VIDEO_URLS.doMadrid,
 		aspect: '16:9',
+		instagramQuery: 'D.O Vinos de Madrid',
 	},
 ]
 
 const DIMS = {
 	'16:9': { w: '56rem', h: '31.5rem' },
-	'9:16': { w: '20rem', h: '35.5rem' },
+	'9:16': { w: '26.4rem', h: '39.11rem' },
 } as const
 
 export default function NoisegraphPage() {
@@ -228,7 +234,11 @@ export default function NoisegraphPage() {
 							{PROJECTS.map((project, index) => (
 								<a
 									key={project.slug}
-									href="#"
+									href={`https://www.instagram.com/explore/search/keyword/?q=${encodeURIComponent(
+										project.instagramQuery,
+									)}`}
+									target="_blank"
+									rel="noopener noreferrer"
 									className={`ProjectsPage-listItem${
 										index === activeIndex
 											? ' is-active'
@@ -239,9 +249,6 @@ export default function NoisegraphPage() {
 									}
 									onFocus={() =>
 										setActiveIndex(index)
-									}
-									onClick={(e) =>
-										e.preventDefault()
 									}
 									data-cursor-hover
 								>
@@ -333,6 +340,7 @@ export default function NoisegraphPage() {
 					</div>
 				</div>
 			</section>
+
 		</main>
 	)
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
@@ -181,12 +182,20 @@ const PROCESS_STEPS = [
 	},
 ]
 
+const HERO_IMAGES = [
+	'/vinos-de-madrid/U486213_011.jpg',
+	'/vinos-de-madrid/U500501_004.jpg',
+	'/vinos-de-madrid/U500501_013.jpg',
+	'/vinos-de-madrid/U500501_055.jpg',
+]
+
 export default function PressPage() {
 	const lenis = useLenis()
 	const pageRef = useRef<HTMLElement>(null)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 	const subtitleRef = useRef<HTMLDivElement>(null)
 	const [entered, setEntered] = useState(false)
+	const [activeHeroImage, setActiveHeroImage] = useState(0)
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger)
@@ -199,6 +208,16 @@ export default function PressPage() {
 		lenis.on('scroll', onScroll)
 		return () => lenis.off('scroll', onScroll)
 	}, [lenis])
+
+	useEffect(() => {
+		const id = window.setInterval(() => {
+			setActiveHeroImage((prev) =>
+				(prev + 1) % HERO_IMAGES.length,
+			)
+		}, 4200)
+
+		return () => window.clearInterval(id)
+	}, [])
 
 	useEffect(() => {
 		if (!entered) return
@@ -398,34 +417,60 @@ export default function PressPage() {
 
 			<section className="PressPage-hero">
 				<div className="PressPage-heroInner wrapper-1290">
-					<h1 ref={titleRef} className="PressPage-title">
-						<span className="PressPage-titleLine">
-							Gabinete
-						</span>
-						<span className="PressPage-titleLine --accent">
-							de Prensa
-						</span>
-					</h1>
+					<div className="PressPage-heroTop">
+						<h1 ref={titleRef} className="PressPage-title">
+							<span className="PressPage-titleLine">
+								Gabinete
+							</span>
+							<span className="PressPage-titleLine --accent">
+								de Prensa
+							</span>
+						</h1>
 
-					<div
-						ref={subtitleRef}
-						className="PressPage-intro"
-					>
-						<p
-							className="PressPage-introSerif"
-							data-intro-line
+						<div
+							ref={subtitleRef}
+							className="PressPage-intro"
 						>
-							Activamos tu evento/marca en medios
-							nacionales e internacionales.
-						</p>
-						<p
-							className="PressPage-introText"
-							data-intro-line
-						>
-							Prensa escrita, televisión y medios
-							digitales, a través de nuestro
-							socio GTRES.
-						</p>
+							<p
+								className="PressPage-introSerif"
+								data-intro-line
+							>
+								Activamos tu evento/marca en medios
+								nacionales e internacionales.
+							</p>
+							<p
+								className="PressPage-introText"
+								data-intro-line
+							>
+								Prensa escrita, televisión y medios
+								digitales, a través de nuestro
+								socio GTRES.
+							</p>
+						</div>
+					</div>
+
+					<div className="PressPage-heroGallery">
+						{HERO_IMAGES.map((src, index) => (
+							<div
+								key={src}
+								className={`PressPage-heroGalleryImage${
+									index === activeHeroImage
+										? ' is-active'
+										: ''
+								}`}
+								aria-hidden={index !== activeHeroImage}
+							>
+								<Image
+									src={src}
+									alt=""
+									fill
+									sizes="100vw"
+									priority={index === 0}
+									className="PressPage-heroImage"
+								/>
+							</div>
+						))}
+						<div className="PressPage-heroGalleryOverlay" />
 					</div>
 				</div>
 			</section>
@@ -521,35 +566,6 @@ export default function PressPage() {
 				<div className="PressPage-line" />
 			</div>
 
-			<section className="PressPage-cta">
-				<div className="wrapper-1290">
-					<div className="PressPage-ctaInner">
-						<h2 className="PressPage-ctaTitle">
-							¿Hablamos?
-						</h2>
-						<p className="PressPage-ctaText">
-							La reputación se construye antes de
-							necesitarla.
-						</p>
-						<button
-							type="button"
-							className="AppButton"
-							data-cursor-hover
-							onClick={() =>
-								window.dispatchEvent(
-									new Event('openKevinChat'),
-								)
-							}
-							style={{ marginTop: '2rem' }}
-						>
-							<span className="pl-square" />
-							<span className="AppButton-title">
-								Hablemos
-							</span>
-						</button>
-					</div>
-				</div>
-			</section>
 		</main>
 	)
 }

@@ -2,7 +2,6 @@ import { AnimatedLogo } from '@/components/animated-logo'
 import { HeroIntro } from '@/components/hero-intro'
 import { HomeShowreel } from '@/components/home-showreel'
 import { HomeFamily } from '@/components/home-family'
-import { HomeFooter } from '@/components/home-footer'
 import IaSplineViewer from '@/components/ia-spline-viewer'
 import PlatePreview from '@/components/plate-preview'
 
@@ -42,7 +41,6 @@ export default function HomePage() {
 					/>
 				}
 			/>
-			<HomeFooter />
 		</>
 	)
 }

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import gsap from 'gsap'
 
 const NAV_LINKS = [
 	{ href: '/servicios/produccion-audiovisual', label: 'Producción' },
@@ -15,8 +16,50 @@ export function Navigation() {
 	const pathname = usePathname()
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [bgStyle, setBgStyle] = useState({ left: 0, width: 0 })
+	const headerRef = useRef<HTMLElement>(null)
+	const logoRef = useRef<HTMLAnchorElement>(null)
 	const navRef = useRef<HTMLDivElement>(null)
 	const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
+
+	useEffect(() => {
+		const headerElement = headerRef.current
+		if (!headerElement) return
+
+		const navItems = itemRefs.current.filter(
+			(item): item is HTMLAnchorElement => item !== null,
+		)
+
+		const ctx = gsap.context(() => {
+			gsap.fromTo(
+				[logoRef.current, navRef.current],
+				{ autoAlpha: 0, y: 20 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.7,
+					ease: 'power3.out',
+					stagger: 0.08,
+				},
+			)
+
+			if (navItems.length > 0) {
+				gsap.fromTo(
+					navItems,
+					{ autoAlpha: 0, y: 12 },
+					{
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.5,
+						ease: 'power2.out',
+						stagger: 0.05,
+						delay: 0.15,
+					},
+				)
+			}
+		}, headerElement)
+
+		return () => ctx.revert()
+	}, [])
 
 	useEffect(() => {
 		const activeIndex = NAV_LINKS.findIndex(
@@ -59,8 +102,20 @@ export function Navigation() {
 	}
 
 	return (
-		<header className="Header">
+		<header ref={headerRef} className="Header">
 			<div className="Header-wrapper">
+				<Link
+					href="/"
+					ref={logoRef}
+					className="Header-logo"
+					aria-label="Ir al inicio"
+				>
+					<span className="Header-logoIcon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" role="img">
+							<path d="M12 3.2 3 10.4V21h6.4v-6.2h5.2V21H21V10.4z" />
+						</svg>
+					</span>
+				</Link>
 				{/* Desktop nav */}
 				<nav
 					ref={navRef}

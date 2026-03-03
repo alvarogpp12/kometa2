@@ -86,28 +86,6 @@ export function HomeCategories() {
 				))}
 			</div>
 
-			<div
-				style={{
-					marginTop: '3rem',
-					opacity: inView ? 1 : 0,
-					transition: 'opacity 0.6s ease 0.4s',
-				}}
-			>
-				<button
-					type="button"
-					className="AppButton"
-					onClick={() =>
-						window.dispatchEvent(
-							new Event('openKevinChat'),
-						)
-					}
-				>
-					<span className="pl-square" />
-					<span className="AppButton-title">
-						See All
-					</span>
-				</button>
-			</div>
 		</section>
 	)
 }
