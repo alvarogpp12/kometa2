@@ -33,6 +33,10 @@ export interface CloudinaryImageUrls {
 	gresNegro: string
 	gresVerde: string
 	gresAmarillo: string
+	pressHero1: string
+	pressHero2: string
+	pressHero3: string
+	pressHero4: string
 }
 
 export const VIDEO_URLS: CloudinaryVideoUrls = {
@@ -101,4 +105,12 @@ export const IMAGE_URLS: CloudinaryImageUrls = {
 		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772544701/gresverde_rda1we.png',
 	gresAmarillo:
 		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772544686/gresamarillo_elcaso.png',
+	pressHero1:
+		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772571372/vinos-de-madrid/u486213_011.jpg',
+	pressHero2:
+		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772571382/vinos-de-madrid/u500501_004.jpg',
+	pressHero3:
+		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772571391/vinos-de-madrid/u500501_013.jpg',
+	pressHero4:
+		'https://res.cloudinary.com/dkgv4tw3q/image/upload/v1772571398/vinos-de-madrid/u500501_055.jpg',
 }

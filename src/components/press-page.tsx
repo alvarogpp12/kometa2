@@ -183,10 +183,10 @@ const PROCESS_STEPS = [
 ]
 
 const HERO_IMAGES = [
-	'/vinos-de-madrid/U486213_011.jpg',
-	'/vinos-de-madrid/U500501_004.jpg',
-	'/vinos-de-madrid/U500501_013.jpg',
-	'/vinos-de-madrid/U500501_055.jpg',
+	IMAGE_URLS.pressHero1,
+	IMAGE_URLS.pressHero2,
+	IMAGE_URLS.pressHero3,
+	IMAGE_URLS.pressHero4,
 ]
 
 export default function PressPage() {
