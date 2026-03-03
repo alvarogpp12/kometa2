@@ -21,11 +21,11 @@ export function HeroIntro() {
 			}}
 		>
 			<div className="HeroIntro-top">
-				<p className="HeroIntro-title">
-					<span className="HeroIntro-line HeroIntro-line--intro">
+				<div className="HeroIntro-title">
+					<p className="HeroIntro-line HeroIntro-line--intro">
 						Transformamos tus ideas en proyectos reales.
-					</span>
-					<span className="HeroIntro-line HeroIntro-line--words">
+					</p>
+					<p className="HeroIntro-line HeroIntro-line--words">
 						<span className="HeroIntro-word HeroIntro-word--full">
 							Estrategia
 						</span>{' '}
@@ -38,8 +38,8 @@ export function HeroIntro() {
 						<span className="HeroIntro-word HeroIntro-word--soft">
 							Presencia
 						</span>
-					</span>
-				</p>
+					</p>
+				</div>
 			</div>
 		</div>
 	)

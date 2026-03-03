@@ -137,9 +137,26 @@ export function HomeFamily({ iaMedia, webDevMedia }: HomeFamilyProps) {
 		}, 560)
 	}
 
+	const handlePrevService = () => {
+		setActiveIndex((prev) =>
+			prev === 0 ? SERVICES.length - 1 : prev - 1,
+		)
+	}
+
+	const handleNextService = () => {
+		setActiveIndex((prev) =>
+			prev === SERVICES.length - 1 ? 0 : prev + 1,
+		)
+	}
+
 	return (
 		<section className="SliceHomeArtists">
 			<div className="wrapper-1080">
+				<div className="SliceHomeArtists-mobileHead">
+					<h2 className="SliceHomeArtists-mobileHeading">
+						Servicios
+					</h2>
+				</div>
 				<h2 className="SliceHomeArtists-title">Servicios</h2>
 
 				<div className="SliceHomeArtists-content">
@@ -184,6 +201,48 @@ export function HomeFamily({ iaMedia, webDevMedia }: HomeFamilyProps) {
 					</div>
 
 					<div className="SliceHomeArtists-listWrap">
+						<div className="SliceHomeArtists-mobileSelector">
+							<button
+								type="button"
+								className="SliceHomeArtists-arrow"
+								onClick={handlePrevService}
+								aria-label="Servicio anterior"
+							>
+								<span aria-hidden>←</span>
+							</button>
+							<Link
+								href={`/servicios/${activeService.slug}`}
+								className="SliceHomeArtists-mobileTitle"
+								onClick={(event) =>
+									handleServiceClick(
+										event,
+										`/servicios/${activeService.slug}`,
+									)
+								}
+							>
+								{activeService.title}
+							</Link>
+							<button
+								type="button"
+								className="SliceHomeArtists-arrow"
+								onClick={handleNextService}
+								aria-label="Siguiente servicio"
+							>
+								<span aria-hidden>→</span>
+							</button>
+						</div>
+
+						<div className="SliceHomeArtists-mobileRail" aria-hidden>
+							{SERVICES.map((service, index) => (
+								<span
+									key={service.slug}
+									className={`SliceHomeArtists-mobileRailDot${
+										index === activeIndex ? ' is-active' : ''
+									}`}
+								/>
+							))}
+						</div>
+
 						<nav ref={listRef} className="SliceHomeArtists-list" aria-label="Servicios">
 							{SERVICES.map((service, index) => (
 								<Link

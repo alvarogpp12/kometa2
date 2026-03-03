@@ -101,13 +101,17 @@ export function Navigation() {
 		}
 	}
 
+	const handleOpenChat = () => {
+		window.dispatchEvent(new Event('openKevinChat'))
+	}
+
 	return (
 		<header ref={headerRef} className="Header">
 			<div className="Header-wrapper">
 				<Link
 					href="/"
 					ref={logoRef}
-					className="Header-logo"
+					className="Header-logo Header-logoMain"
 					aria-label="Ir al inicio"
 				>
 					<span className="Header-logoIcon" aria-hidden="true">
@@ -178,6 +182,29 @@ export function Navigation() {
 						Close menu
 					</span>
 				</button>
+				<button
+					type="button"
+					className="Header-logo Header-chatBt"
+					onClick={handleOpenChat}
+					aria-label="Abrir chat"
+				>
+					<span className="Header-logoIcon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" role="img">
+							<path d="M3.5 11.6 19.9 4.2a1 1 0 0 1 1.4 1.1l-2.2 12a1 1 0 0 1-1.7.5l-3.1-3.4-3.6 2.4a1 1 0 0 1-1.6-.8v-4.5L3.2 13a.8.8 0 0 1 .3-1.4z" />
+						</svg>
+					</span>
+				</button>
+				<Link
+					href="/"
+					className="Header-logo Header-homeMobileBt"
+					aria-label="Ir al inicio"
+				>
+					<span className="Header-logoIcon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" role="img">
+							<path d="M12 3.2 3 10.4V21h6.4v-6.2h5.2V21H21V10.4z" />
+						</svg>
+					</span>
+				</Link>
 			</div>
 
 			{/* Mobile menu overlay */}

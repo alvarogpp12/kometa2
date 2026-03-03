@@ -1046,6 +1046,7 @@ export default function ChatWidget() {
 
 			{/* Floating Spline button */}
 			<div
+				className="ChatWidget-splineTrigger"
 				onClick={togglePanel}
 				style={{
 					position: 'fixed',
@@ -1156,6 +1157,11 @@ export default function ChatWidget() {
 				@keyframes kevinBlink {
 					0%, 100% { opacity: 1; }
 					50% { opacity: 0; }
+				}
+				@media (orientation: portrait) {
+					.ChatWidget-splineTrigger {
+						display: none !important;
+					}
 				}
 			`}</style>
 		</>

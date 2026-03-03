@@ -68,6 +68,18 @@ export default function NoisegraphPage() {
 	const [clock, setClock] = useState('')
 	const activeProject = PROJECTS[activeIndex]
 
+	const handlePrevProject = () => {
+		setActiveIndex((prev) =>
+			prev === 0 ? PROJECTS.length - 1 : prev - 1,
+		)
+	}
+
+	const handleNextProject = () => {
+		setActiveIndex((prev) =>
+			prev === PROJECTS.length - 1 ? 0 : prev + 1,
+		)
+	}
+
 	useEffect(() => {
 		const tick = () => {
 			const now = new Date()
@@ -230,6 +242,25 @@ export default function NoisegraphPage() {
 					</h1>
 
 					<div className="ProjectsPage-content">
+						<div className="ProjectsPage-mobileArrows">
+							<button
+								type="button"
+								className="ProjectsPage-mobileArrow"
+								onClick={handlePrevProject}
+								aria-label="Proyecto anterior"
+							>
+								↑
+							</button>
+							<button
+								type="button"
+								className="ProjectsPage-mobileArrow"
+								onClick={handleNextProject}
+								aria-label="Siguiente proyecto"
+							>
+								↓
+							</button>
+						</div>
+
 						<nav className="ProjectsPage-list">
 							{PROJECTS.map((project, index) => (
 								<a
