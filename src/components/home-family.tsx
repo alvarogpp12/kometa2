@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { VIDEO_URLS } from '@/lib/cloudinary-media'
 import { SERVICES } from '@/lib/services'
 
 interface HomeFamilyProps {
@@ -20,7 +21,7 @@ export function HomeFamily({ iaMedia, webDevMedia }: HomeFamilyProps) {
 	const [isTransitioningVideo, setIsTransitioningVideo] = useState(false)
 	const listRef = useRef<HTMLElement>(null)
 	const [thumbOffset, setThumbOffset] = useState(0)
-	const fallbackVideoSrc = '/videos/showreel.mp4'
+	const fallbackVideoSrc = VIDEO_URLS.reel3
 	const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
 		null,
 	)

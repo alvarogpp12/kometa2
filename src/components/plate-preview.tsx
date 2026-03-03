@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { IMAGE_URLS } from '@/lib/cloudinary-media'
 
 const COLORS = [
 	{ id: 'rojo', name: 'Rojo', hex: '#BE4A34' },
@@ -13,12 +14,12 @@ const COLORS = [
 ]
 
 const GRES_IMAGES: Record<string, string> = {
-	rojo: '/platos/gres/gresrojo.png',
-	azul: '/platos/gres/gresazul.png',
-	turquesa: '/platos/gres/gresturquesa.png',
-	negro: '/platos/gres/gresnegro.png',
-	verde: '/platos/gres/gresverde.png',
-	amarillo: '/platos/gres/gresamarillo.png',
+	rojo: IMAGE_URLS.gresRojo,
+	azul: IMAGE_URLS.gresAzul,
+	turquesa: IMAGE_URLS.gresTurquesa,
+	negro: IMAGE_URLS.gresNegro,
+	verde: IMAGE_URLS.gresVerde,
+	amarillo: IMAGE_URLS.gresAmarillo,
 }
 
 interface PlatePreviewProps {

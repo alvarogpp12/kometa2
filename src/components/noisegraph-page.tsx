@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
+import { VIDEO_URLS } from '@/lib/cloudinary-media'
 
 interface ProjectItem {
 	name: string
@@ -15,31 +16,31 @@ const PROJECTS: ProjectItem[] = [
 	{
 		name: 'Adealfar',
 		slug: 'adealfar',
-		video: '/videos/adealfar.mp4',
+		video: VIDEO_URLS.adealfar,
 		aspect: '16:9',
 	},
 	{
 		name: 'González y González',
 		slug: 'gonzalez-y-gonzalez',
-		video: '/videos/gonzalezygonzalez.mp4',
+		video: VIDEO_URLS.gonzalezYGonzalez,
 		aspect: '9:16',
 	},
 	{
 		name: 'Los Taranjales',
 		slug: 'los-taranjales',
-		video: '/videos/webtaranjales.mp4',
+		video: VIDEO_URLS.webTaranjales,
 		aspect: '16:9',
 	},
 	{
 		name: 'ARS Living Sevilla',
 		slug: 'ars-living-sevilla',
-		video: '/videos/videosmarketing/GyG_Campaña_SV_Receta_Cupcakes.mp4',
+		video: VIDEO_URLS.video20260216,
 		aspect: '9:16',
 	},
 	{
 		name: 'Sanvinx L\'Épicurien',
 		slug: 'sanvinx-lepicurien',
-		video: '/videos/sanvin x Lépicurien.mp4',
+		video: VIDEO_URLS.sanvinxLepicurien,
 		aspect: '16:9',
 	},
 ]

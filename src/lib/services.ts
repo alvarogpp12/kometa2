@@ -1,3 +1,5 @@
+import { VIDEO_URLS } from '@/lib/cloudinary-media'
+
 export interface ServiceContent {
 	slug: string
 	title: string
@@ -10,7 +12,7 @@ export const SERVICES: ServiceContent[] = [
 	{
 		slug: 'produccion-audiovisual',
 		title: 'Produccion Audiovisual',
-		previewVideo: '/videos/adealfar.mp4',
+		previewVideo: VIDEO_URLS.adealfar,
 		introFirst:
 			'¿Coordinas freelancers para cada proyecto? ¿Pierdes tiempo gestionando proveedores?',
 		introSecond:
@@ -19,7 +21,7 @@ export const SERVICES: ServiceContent[] = [
 	{
 		slug: 'desarrollo-web',
 		title: 'Desarrollo Web',
-		previewVideo: '/videos/DESAROOLLOWEBDEFINITIVO2.mov',
+		previewVideo: VIDEO_URLS.desarrolloWeb,
 		introFirst:
 			'Diseñamos experiencias digitales que combinan estética y funcionalidad.',
 		introSecond:
@@ -28,7 +30,7 @@ export const SERVICES: ServiceContent[] = [
 	{
 		slug: 'ia-aplicada',
 		title: 'IA Aplicada',
-		previewVideo: '/videos/REEL 1.mp4',
+		previewVideo: VIDEO_URLS.reel1,
 		introFirst:
 			'Integramos IA en procesos creativos y estratégicos con enfoque de negocio.',
 		introSecond:
@@ -37,7 +39,7 @@ export const SERVICES: ServiceContent[] = [
 	{
 		slug: 'gabinete-de-prensa',
 		title: 'Gabinete de Prensa',
-		previewVideo: '/videos/VIDEO-2026-02-16-22-52-32.mp4',
+		previewVideo: VIDEO_URLS.video20260216,
 		introFirst:
 			'Activamos tu evento/marca en medios nacionales e internacionales.',
 		introSecond:

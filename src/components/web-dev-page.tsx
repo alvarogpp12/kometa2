@@ -6,6 +6,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
 import { splitChars } from '@/lib/split-chars'
+import { VIDEO_URLS } from '@/lib/cloudinary-media'
 import PlatePreview from '@/components/plate-preview'
 
 const FEATURES = [
@@ -14,21 +15,21 @@ const FEATURES = [
 		desc:
 			'Sin plantillas. Cada interfaz se diseña desde ' +
 			'cero para reflejar tu marca y convertir.',
-		video: '/videos/webdev/diseno-a-medida.mp4',
+		video: VIDEO_URLS.disenoAMedida,
 	},
 	{
 		title: 'Rendimiento extremo',
 		desc:
 			'Carga en milisegundos. Core Web Vitals ' +
 			'optimizados para SEO y experiencia real.',
-		video: '/videos/webdev/rendimiento-extremo.mp4',
+		video: VIDEO_URLS.rendimientoExtremo,
 	},
 	{
 		title: 'Escalable desde el día uno',
 		desc:
 			'Arquitectura moderna que crece contigo. ' +
 			'Next.js, React y deploy global.',
-		video: '/videos/webdev/escalable-desde-dia-uno.mp4',
+		video: VIDEO_URLS.escalableDiaUno,
 	},
 ]
 

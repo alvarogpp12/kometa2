@@ -6,6 +6,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
 import { splitChars } from '@/lib/split-chars'
+import { IMAGE_URLS } from '@/lib/cloudinary-media'
 
 const PILLARS = [
 	{
@@ -70,41 +71,41 @@ const PILLARS = [
 ]
 
 const CLIENT_LOGOS = [
-	{ name: 'Vogue', src: '/logosclientes/vogue-logo.svg' },
-	{ name: 'RTVE', src: '/logosclientes/rtve-logo.png' },
+	{ name: 'Vogue', src: IMAGE_URLS.vogueLogo },
+	{ name: 'RTVE', src: IMAGE_URLS.rtveLogo },
 	{
 		name: 'Marie Claire',
-		src: '/logosclientes/marie-claire-logo.png',
+		src: IMAGE_URLS.marieClaireLogo,
 	},
-	{ name: '¡Hola!', src: '/logosclientes/hola-logo.png' },
+	{ name: '¡Hola!', src: IMAGE_URLS.holaLogo },
 	{
 		name: 'Atresplayer',
-		src: '/logosclientes/atresplayer-logo.png',
+		src: IMAGE_URLS.atresplayerLogo,
 	},
 	{
 		name: 'El Debate',
-		src: '/logosclientes/eldebate-logo.webp',
+		src: IMAGE_URLS.elDebateLogo,
 	},
-	{ name: 'Semana', src: '/logosclientes/semana-logo.png' },
+	{ name: 'Semana', src: IMAGE_URLS.semanaLogo },
 	{
 		name: 'Mediaset',
-		src: '/logosclientes/mediaset-logo.webp',
+		src: IMAGE_URLS.mediasetLogo,
 	},
 	{
 		name: 'Vanitatis',
-		src: '/logosclientes/vanitatis-logo.jpg',
+		src: IMAGE_URLS.vanitatisLogo,
 	},
 	{
 		name: 'EFE',
-		src: '/logosclientes/agencia-efe-logo.png',
+		src: IMAGE_URLS.agenciaEfeLogo,
 	},
 	{
 		name: 'Europa Press',
-		src: '/logosclientes/europapress-logo.png',
+		src: IMAGE_URLS.europaPressLogo,
 	},
 	{
 		name: 'Agencia EFE',
-		src: '/logosclientes/efe-logo.png',
+		src: IMAGE_URLS.efeLogo,
 	},
 ]
 

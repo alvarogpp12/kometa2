@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { VIDEO_URLS } from '@/lib/cloudinary-media'
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(max, Math.max(min, value))
@@ -78,7 +79,7 @@ export function HomeShowreel() {
 							autoPlay
 						>
 							<source
-								src="/videos/webtaranjales.mp4"
+								src={VIDEO_URLS.webTaranjales}
 								type="video/mp4"
 							/>
 						</video>
