@@ -523,6 +523,9 @@ export default function PressPage() {
 										src={logo.src}
 										alt={logo.name}
 										className="PressPage-logoImg"
+										loading="lazy"
+										decoding="async"
+										fetchPriority="low"
 									/>
 								</div>
 							),
