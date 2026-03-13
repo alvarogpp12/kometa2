@@ -6,10 +6,26 @@ import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 
 const NAV_LINKS = [
-	{ href: '/servicios/produccion-audiovisual', label: 'Producción' },
-	{ href: '/servicios/desarrollo-web', label: 'Desarrollo Web' },
-	{ href: '/servicios/ia-aplicada', label: 'IA Aplicada' },
-	{ href: '/servicios/gabinete-de-prensa', label: 'Prensa' },
+	{
+		href: '/servicios/produccion-audiovisual',
+		label: 'Producción',
+		seoLabel: 'Producción Audiovisual',
+	},
+	{
+		href: '/servicios/desarrollo-web',
+		label: 'Desarrollo Web',
+		seoLabel: 'Desarrollo Web',
+	},
+	{
+		href: '/servicios/ia-aplicada',
+		label: 'IA Aplicada',
+		seoLabel: 'IA Aplicada',
+	},
+	{
+		href: '/servicios/gabinete-de-prensa',
+		label: 'Prensa',
+		seoLabel: 'Gabinete de Prensa',
+	},
 ]
 
 export function Navigation() {
@@ -146,6 +162,7 @@ export function Navigation() {
 							}}
 							className="Header-navItem"
 							onMouseEnter={() => handleHover(i)}
+							aria-label={link.seoLabel}
 						>
 							{link.label}
 						</Link>
@@ -233,6 +250,7 @@ export function Navigation() {
 								color: 'var(--color-white)',
 							}}
 							onClick={() => setMenuOpen(false)}
+							aria-label={link.seoLabel}
 						>
 							{link.label}
 						</Link>

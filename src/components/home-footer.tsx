@@ -79,6 +79,7 @@ export function HomeFooter() {
 
 					{/* Nav links */}
 					<nav
+						aria-label="Servicios principales"
 						style={{
 							display: 'flex',
 							flexDirection: 'column',
@@ -88,14 +89,31 @@ export function HomeFooter() {
 						}}
 					>
 						{[
-							{ label: 'Producción', href: '/servicios/produccion-audiovisual' },
-							{ label: 'Desarrollo Web', href: '/servicios/desarrollo-web' },
-							{ label: 'IA Aplicada', href: '/servicios/ia-aplicada' },
-						{ label: 'Prensa', href: '/servicios/gabinete-de-prensa' },
-					].map((item) => (
+							{
+								label: 'Producción',
+								href: '/servicios/produccion-audiovisual',
+								seoLabel: 'Producción Audiovisual',
+							},
+							{
+								label: 'Desarrollo Web',
+								href: '/servicios/desarrollo-web',
+								seoLabel: 'Desarrollo Web',
+							},
+							{
+								label: 'IA Aplicada',
+								href: '/servicios/ia-aplicada',
+								seoLabel: 'IA Aplicada',
+							},
+							{
+								label: 'Prensa',
+								href: '/servicios/gabinete-de-prensa',
+								seoLabel: 'Gabinete de Prensa',
+							},
+						].map((item) => (
 							<Link
 								key={item.href}
 								href={item.href}
+								aria-label={item.seoLabel}
 								style={{
 									fontSize: '16px',
 									display: 'flex',

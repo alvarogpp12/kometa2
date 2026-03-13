@@ -192,6 +192,9 @@ export default function PlatePreview({
 						<img
 							src={currentImage}
 							alt={`Plato gres ${selectedColor}`}
+							loading="lazy"
+							decoding="async"
+							fetchPriority="low"
 							style={{
 								width: '100%',
 								height: '100%',
