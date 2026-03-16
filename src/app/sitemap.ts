@@ -4,7 +4,7 @@ import { getSiteUrl } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	const siteUrl = getSiteUrl()
-	const now = new Date()
+	const now = new Date().toISOString()
 
 	const staticRoutes: MetadataRoute.Sitemap = [
 		{
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 	const serviceRoutes: MetadataRoute.Sitemap = SERVICES.map((service) => ({
 		url: `${siteUrl}/servicios/${service.slug}`,
 		lastModified: now,
-		changeFrequency: 'weekly',
+		changeFrequency: 'weekly' as const,
 		priority: 0.9,
 	}))
 
