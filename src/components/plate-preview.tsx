@@ -283,7 +283,7 @@ export default function PlatePreview({
 						color: 'rgba(255, 255, 255, 0.45)',
 					}}
 				>
-					Desarrollada por Kometa Lab
+					Desarrollada por Kometalab
 				</span>
 			</div>
 		</div>

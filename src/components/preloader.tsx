@@ -43,7 +43,7 @@ export function Preloader() {
 					<div className="PageLoader-logoStack">
 						<Image
 							src="/LOGO/LOGOKOMETA.svg"
-							alt="Kometa"
+							alt="Kometalab"
 							width={580}
 							height={100}
 							priority

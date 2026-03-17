@@ -138,7 +138,7 @@ export function HomeFooter() {
 							viewBox="82 250 1276 330"
 							style={{ width: '100%' }}
 							role="img"
-							aria-label="kometa lab"
+							aria-label="Kometalab"
 						>
 							<g transform="translate(82 504.885076)" fill="var(--color-grey-1)">
 								<path d="M 86.25 -53.375 L 70.515625 -37.359375 L 70.515625 0 L 17.140625 0 L 17.140625 -208.453125 L 70.515625 -208.453125 L 70.515625 -99.171875 L 125.015625 -152.265625 L 188.234375 -152.265625 L 125.015625 -87.09375 L 193.5625 0 L 128.953125 0 Z" />
@@ -186,7 +186,7 @@ export function HomeFooter() {
 							opacity: 0.3,
 						}}
 					>
-						<span>© {new Date().getFullYear()} Kometa Lab</span>
+						<span>© {new Date().getFullYear()} Kometalab</span>
 					</div>
 				</div>
 			</div>

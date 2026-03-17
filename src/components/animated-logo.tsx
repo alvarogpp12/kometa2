@@ -72,7 +72,7 @@ export function AnimatedLogo() {
 				className="AnimatedLogo-svg"
 				viewBox="82 250 1276 330"
 				role="img"
-				aria-label="kometa lab"
+				aria-label="Kometalab"
 			>
 				<g transform="translate(82 504.885076)">
 				<g
