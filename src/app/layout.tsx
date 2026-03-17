@@ -24,12 +24,14 @@ const season = localFont({
 export const metadata: Metadata = {
 	metadataBase: new URL(getSiteUrl()),
 	title: {
-		default: 'Kometa | Producción Audiovisual, Web, IA y Prensa',
-		template: '%s | Kometa',
+		default: 'Kometalab — Estrategia, Producción, Tecnología'
+			+ ' y Presencia en Madrid',
+		template: '%s — Kometalab',
 	},
 	description:
-		'Agencia en Madrid de producción audiovisual, desarrollo web,'
-		+ ' IA aplicada y gabinete de prensa.',
+		'Transformamos tus ideas en proyectos reales.'
+		+ ' Producción audiovisual, desarrollo web,'
+		+ ' IA aplicada y gabinete de prensa en Madrid.',
 	robots: {
 		index: true,
 		follow: true,
@@ -47,18 +49,19 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: 'website',
 		locale: 'es_ES',
-		url: '/',
-		siteName: 'Kometa',
-		title: 'Kometa | Producción Audiovisual, Web, IA y Prensa',
-		description:
-			'Producción audiovisual, desarrollo web, IA aplicada y'
-			+ ' gabinete de prensa.',
+		siteName: 'Kometalab',
+		images: [
+			{
+				url: '/og-image.png',
+				width: 1200,
+				height: 630,
+				alt: 'Kometalab',
+			},
+		],
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'Kometa | Producción Audiovisual, Web, IA y Prensa',
-		description:
-			'Estrategia digital, producción y tecnología para marcas.',
+		images: ['/og-image.png'],
 	},
 }
 

@@ -17,19 +17,48 @@ export function generateStaticParams() {
 	return SERVICES.map((service) => ({ slug: service.slug }))
 }
 
+interface ServiceSeo {
+	title: string
+	description: string
+}
+
+const SERVICE_SEO: Record<string, ServiceSeo> = {
+	'produccion-audiovisual': {
+		title: 'Producción Audiovisual en Madrid',
+		description:
+			'Un solo equipo para toda tu comunicación:'
+			+ ' estrategia, producción y entrega.'
+			+ ' Para marcas que quieren eficiencia real.'
+			+ ' Sede en Madrid, pero vamos donde estés.',
+	},
+	'desarrollo-web': {
+		title: 'Desarrollo Web en Madrid',
+		description:
+			'Diseñamos experiencias digitales que combinan'
+			+ ' estética y funcionalidad.'
+			+ ' Webs a medida, orientadas a conversión y'
+			+ ' construidas como plataformas de crecimiento.',
+	},
+	'ia-aplicada': {
+		title: 'IA Aplicada en Madrid',
+		description:
+			'Integramos IA en procesos creativos y'
+			+ ' estratégicos con enfoque de negocio.'
+			+ ' Automatización, optimización y escalabilidad'
+			+ ' sin perder identidad.',
+	},
+	'gabinete-de-prensa': {
+		title: 'Gabinete de Prensa en Madrid',
+		description:
+			'Activamos tu evento y marca en medios nacionales'
+			+ ' e internacionales. Prensa escrita, televisión'
+			+ ' y medios digitales, a través de nuestro'
+			+ ' socio GTRES.',
+	},
+}
+
 function getServiceSeoTitle(slug: string): string {
-	switch (slug) {
-		case 'produccion-audiovisual':
-			return 'Producción Audiovisual'
-		case 'desarrollo-web':
-			return 'Desarrollo Web'
-		case 'ia-aplicada':
-			return 'IA Aplicada'
-		case 'gabinete-de-prensa':
-			return 'Gabinete de Prensa'
-		default:
-			return 'Servicios'
-	}
+	return SERVICE_SEO[slug]?.title ?? 'Servicios'
 }
 
 export function generateMetadata({
@@ -37,27 +66,36 @@ export function generateMetadata({
 }: {
 	params: ServiceRouteParams
 }): Metadata {
-	const service = SERVICES.find((item) => item.slug === params.slug)
+	const service = SERVICES.find(
+		(item) => item.slug === params.slug,
+	)
 	if (!service) {
 		return {
-			robots: {
-				index: false,
-				follow: false,
-			},
+			robots: { index: false, follow: false },
 		}
 	}
 
-	const serviceTitle = getServiceSeoTitle(service.slug)
-	const description = `${service.introFirst} ${service.introSecond}`.slice(
-		0,
-		155,
-	)
+	const seo = SERVICE_SEO[service.slug]
+	if (!seo) {
+		return {
+			robots: { index: false, follow: false },
+		}
+	}
 
 	return {
-		title: `${serviceTitle} en Madrid`,
-		description,
+		title: seo.title,
+		description: seo.description,
 		alternates: {
 			canonical: `/servicios/${service.slug}`,
+		},
+		openGraph: {
+			title: `${seo.title} — Kometalab`,
+			description: seo.description,
+			url: `/servicios/${service.slug}`,
+		},
+		twitter: {
+			title: `${seo.title} — Kometalab`,
+			description: seo.description,
 		},
 	}
 }

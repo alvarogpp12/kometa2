@@ -7,22 +7,39 @@ import IaSplineViewer from '@/components/ia-spline-viewer'
 import PlatePreview from '@/components/plate-preview'
 
 export const metadata: Metadata = {
-	title: 'Producción Audiovisual, Web, IA y Prensa en Madrid',
+	title: 'Transformamos tus ideas en proyectos reales',
 	description:
-		'Agencia en Madrid de producción audiovisual, desarrollo web,'
-		+ ' IA aplicada y gabinete de prensa.',
+		'Estrategia, producción, tecnología y presencia.'
+		+ ' Un solo equipo para toda tu comunicación'
+		+ ' en Madrid.',
 	alternates: {
 		canonical: '/',
+	},
+	openGraph: {
+		title: 'Kometalab — Transformamos tus ideas'
+			+ ' en proyectos reales',
+		description:
+			'Estrategia, producción, tecnología y presencia.'
+			+ ' Un solo equipo para toda tu comunicación.',
+		url: '/',
+	},
+	twitter: {
+		title: 'Kometalab — Transformamos tus ideas'
+			+ ' en proyectos reales',
+		description:
+			'Estrategia, producción, tecnología y presencia.'
+			+ ' Un solo equipo para toda tu comunicación.',
 	},
 }
 
 export default function HomePage() {
 	return (
 		<>
-			<h1 className="sr-only">
-				Kometa: producción audiovisual, desarrollo web, IA
-				aplicada y gabinete de prensa en Madrid
-			</h1>
+		<h1 className="sr-only">
+			Kometalab: estrategia, producción audiovisual,
+			desarrollo web, IA aplicada y gabinete de prensa
+			en Madrid
+		</h1>
 			<section className="HomeHero">
 				<div className="wrapper">
 					<AnimatedLogo />

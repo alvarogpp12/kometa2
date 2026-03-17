@@ -55,7 +55,7 @@ export function getSiteUrl(): string {
 	if (fromEnv && fromEnv.startsWith('http')) {
 		return fromEnv.replace(/\/$/, '')
 	}
-	return 'https://kometa.tv'
+	return 'https://kometacom.com'
 }
 
 export function getOrganizationSchema(): OrganizationSchema {
@@ -64,13 +64,10 @@ export function getOrganizationSchema(): OrganizationSchema {
 		'@context': 'https://schema.org',
 		'@type': 'Organization',
 		'@id': `${siteUrl}/#organization`,
-		name: 'Kometa',
+		name: 'Kometalab',
 		url: siteUrl,
 		logo: `${siteUrl}/LOGO/LOGOKOMETA.svg`,
-		sameAs: [
-			'https://www.instagram.com/kometa.tv',
-			'https://www.youtube.com/@kometa',
-		],
+		sameAs: [],
 	}
 }
 
@@ -81,7 +78,7 @@ export function getWebSiteSchema(): WebSiteSchema {
 		'@type': 'WebSite',
 		'@id': `${siteUrl}/#website`,
 		url: siteUrl,
-		name: 'Kometa',
+		name: 'Kometalab',
 		inLanguage: 'es',
 		publisher: {
 			'@id': `${siteUrl}/#organization`,
@@ -95,7 +92,7 @@ export function getProfessionalServiceSchema(): ProfessionalServiceSchema {
 		'@context': 'https://schema.org',
 		'@type': 'ProfessionalService',
 		'@id': `${siteUrl}/#service`,
-		name: 'Kometa',
+		name: 'Kometalab',
 		url: siteUrl,
 		areaServed: 'ES',
 		serviceType: [

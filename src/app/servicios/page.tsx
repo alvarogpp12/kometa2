@@ -3,12 +3,27 @@ import Link from 'next/link'
 import { SERVICES } from '@/lib/services'
 
 export const metadata: Metadata = {
-	title: 'Servicios Digitales y Audiovisuales en Madrid',
+	title: 'Servicios',
 	description:
-		'Servicios de producción audiovisual, desarrollo web, IA'
-		+ ' aplicada y gabinete de prensa en Madrid.',
+		'Producción audiovisual, desarrollo web,'
+		+ ' IA aplicada y gabinete de prensa.'
+		+ ' Un solo equipo para toda tu comunicación'
+		+ ' en Madrid.',
 	alternates: {
 		canonical: '/servicios',
+	},
+	openGraph: {
+		title: 'Servicios — Kometalab',
+		description:
+			'Producción audiovisual, desarrollo web,'
+			+ ' IA aplicada y gabinete de prensa en Madrid.',
+		url: '/servicios',
+	},
+	twitter: {
+		title: 'Servicios — Kometalab',
+		description:
+			'Producción audiovisual, desarrollo web,'
+			+ ' IA aplicada y gabinete de prensa en Madrid.',
 	},
 }
 
