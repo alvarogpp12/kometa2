@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { VIDEO_URLS } from '@/lib/cloudinary-media'
+import { VIDEO_URLS, getVideoPoster } from '@/lib/cloudinary-media'
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(max, Math.max(min, value))
@@ -72,7 +72,8 @@ export function HomeShowreel() {
 					<div className="AppVideo --is-playing --fit-cover">
 						<video
 							className="AppVideo-video"
-							preload="metadata"
+							poster={getVideoPoster({ url: VIDEO_URLS.webTaranjales })}
+							preload="auto"
 							playsInline
 							loop
 							muted

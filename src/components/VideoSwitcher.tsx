@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { getVideoPoster } from '@/lib/cloudinary-media'
 
 interface VideoSwitcherProps {
 	videos: [string, string]
@@ -84,7 +85,8 @@ export default function VideoSwitcher({
 				<video
 					className="ProjectsGridLine-itemMedia AppVideo-video"
 					src={videos[frontIndex]}
-					preload="metadata"
+					poster={getVideoPoster({ url: videos[frontIndex] })}
+					preload="auto"
 					loop
 					muted
 					playsInline
@@ -103,7 +105,8 @@ export default function VideoSwitcher({
 				<video
 					className="ProjectsGridLine-itemMedia AppVideo-video"
 					src={videos[backIndex]}
-					preload="metadata"
+					poster={getVideoPoster({ url: videos[backIndex] })}
+					preload="auto"
 					loop
 					muted
 					playsInline

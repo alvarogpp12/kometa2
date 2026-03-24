@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { VIDEO_URLS } from '@/lib/cloudinary-media'
+import { VIDEO_URLS, getVideoPoster } from '@/lib/cloudinary-media'
 import { SERVICES } from '@/lib/services'
 
 interface HomeFamilyProps {
@@ -189,7 +189,8 @@ export function HomeFamily({ iaMedia, webDevMedia }: HomeFamilyProps) {
 									key={currentVideoSrc}
 									className="SliceHomeArtists-mediaVisual"
 									src={currentVideoSrc}
-									preload="metadata"
+									poster={getVideoPoster({ url: currentVideoSrc })}
+									preload="auto"
 									autoPlay
 									loop
 									muted

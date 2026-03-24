@@ -6,7 +6,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
 import { splitChars } from '@/lib/split-chars'
-import { VIDEO_URLS } from '@/lib/cloudinary-media'
+import { VIDEO_URLS, getVideoPoster } from '@/lib/cloudinary-media'
 import PlatePreview from '@/components/plate-preview'
 
 const FEATURES = [
@@ -343,11 +343,12 @@ export default function WebDevPage() {
 								<div className="WebDevPage-mediaBox --feature">
 									<video
 										src={f.video}
+										poster={getVideoPoster({ url: f.video })}
 										autoPlay
 										loop
 										muted
 										playsInline
-										preload="metadata"
+										preload="auto"
 									/>
 								</div>
 								<h3 className="WebDevPage-featureTitle">

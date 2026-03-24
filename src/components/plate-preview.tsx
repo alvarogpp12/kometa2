@@ -1,6 +1,12 @@
 'use client'
 
-import { useCallback, useMemo, useRef, useState } from 'react'
+import {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react'
 import gsap from 'gsap'
 import { IMAGE_URLS } from '@/lib/cloudinary-media'
 
@@ -33,6 +39,13 @@ export default function PlatePreview({
 	const [isAnimating, setIsAnimating] = useState(false)
 	const plateRef = useRef<HTMLDivElement>(null)
 	const shadowRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		Object.values(GRES_IMAGES).forEach((src) => {
+			const img = new Image()
+			img.src = src
+		})
+	}, [])
 
 	const currentImage = useMemo(
 		() => GRES_IMAGES[selectedColor] ?? GRES_IMAGES.rojo,

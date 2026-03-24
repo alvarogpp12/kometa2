@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
-import { VIDEO_URLS } from '@/lib/cloudinary-media'
+import { VIDEO_URLS, getVideoUrlAtWidth, getVideoPoster } from '@/lib/cloudinary-media'
 
 interface ProjectItem {
 	name: string
@@ -56,6 +56,10 @@ const DIMS = {
 	'9:16': { w: '26.4rem', h: '39.11rem' },
 } as const
 
+function getBgVideo(url: string): string {
+	return getVideoUrlAtWidth({ url, maxWidth: 480 })
+}
+
 export default function NoisegraphPage() {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const titleRef = useRef<HTMLHeadingElement>(null)
@@ -67,6 +71,18 @@ export default function NoisegraphPage() {
 	const [textVisible, setTextVisible] = useState(false)
 	const [clock, setClock] = useState('')
 	const activeProject = PROJECTS[activeIndex]
+
+	useEffect(() => {
+		PROJECTS.forEach((project) => {
+			const img = new window.Image()
+			img.src = getVideoPoster({ url: project.video })
+			const bgImg = new window.Image()
+			bgImg.src = getVideoPoster({
+				url: project.video,
+				maxWidth: 480,
+			})
+		})
+	}, [])
 
 	const handlePrevProject = () => {
 		setActiveIndex((prev) =>
@@ -134,7 +150,11 @@ export default function NoisegraphPage() {
 		}
 
 		if (bgVideoRef.current) {
-			bgVideoRef.current.src = activeProject.video
+			bgVideoRef.current.poster = getVideoPoster({
+				url: activeProject.video,
+				maxWidth: 480,
+			})
+			bgVideoRef.current.src = getBgVideo(activeProject.video)
 			bgVideoRef.current.load()
 			bgVideoRef.current.play().catch(() => {})
 		}
@@ -158,6 +178,9 @@ export default function NoisegraphPage() {
 				duration: 0.25,
 				ease: 'power2.in',
 				onComplete: () => {
+					vid.poster = getVideoPoster({
+						url: activeProject.video,
+					})
 					vid.src = activeProject.video
 					vid.load()
 					vid.play().catch(() => {})
@@ -197,8 +220,12 @@ export default function NoisegraphPage() {
 					<video
 						ref={bgVideoRef}
 						className="ProjectsPage-bgVideo"
-						src={activeProject.video}
-						preload="metadata"
+						src={getBgVideo(activeProject.video)}
+						poster={getVideoPoster({
+							url: activeProject.video,
+							maxWidth: 480,
+						})}
+						preload="auto"
 						autoPlay
 						loop
 						muted
@@ -297,7 +324,8 @@ export default function NoisegraphPage() {
 						<video
 							ref={previewVideoRef}
 							className="ProjectsPage-previewVideo"
-							preload="metadata"
+							poster={getVideoPoster({ url: activeProject.video })}
+							preload="auto"
 							autoPlay
 							loop
 							muted

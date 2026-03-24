@@ -5,6 +5,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLenis } from '@/hooks/useLenis'
+import { getVideoPoster } from '@/lib/cloudinary-media'
 
 interface ServiceProject {
 	client: string
@@ -186,7 +187,8 @@ export default function ServicePage({
 															src={
 																project.video
 															}
-															preload="metadata"
+															poster={getVideoPoster({ url: project.video })}
+															preload="auto"
 															loop
 															muted
 															playsInline
