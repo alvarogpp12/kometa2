@@ -87,15 +87,6 @@ export default function RootLayout({
 					rel="dns-prefetch"
 					href="https://res.cloudinary.com"
 				/>
-				<link
-					rel="preconnect"
-					href="https://prod.spline.design"
-					crossOrigin="anonymous"
-				/>
-				<link
-					rel="dns-prefetch"
-					href="https://prod.spline.design"
-				/>
 			</head>
 			<body>
 				<script
