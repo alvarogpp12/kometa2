@@ -7,7 +7,7 @@ import NoisegraphPage from '@/components/noisegraph-page'
 import BrandingPage from '@/components/branding-page'
 import PressPage from '@/components/press-page'
 import { SERVICES } from '@/lib/services'
-import { getBreadcrumbSchema } from '@/lib/seo'
+import { getBreadcrumbSchema, getServiceSchema } from '@/lib/seo'
 
 interface ServiceRouteParams {
 	slug: string
@@ -116,7 +116,10 @@ export default function ServiceDetailPage({
 		<script
 			type="application/ld+json"
 			dangerouslySetInnerHTML={{
-				__html: JSON.stringify(breadcrumbSchema),
+				__html: JSON.stringify([
+					breadcrumbSchema,
+					getServiceSchema(service),
+				]),
 			}}
 		/>
 	)

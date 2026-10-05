@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ContactForm } from '@/components/contact-form'
+import { COMPANY } from '@/lib/contact'
 
 export function HomeFooter() {
 	const footerRef = useRef<HTMLElement>(null)
@@ -138,6 +139,18 @@ export function HomeFooter() {
 						</svg>
 					</div>
 
+					<p
+						style={{
+							fontSize: '1.3rem',
+							lineHeight: 1.5,
+							opacity: 0.5,
+							maxWidth: '72rem',
+							margin: 0,
+						}}
+					>
+						{COMPANY.description}
+					</p>
+
 					{/* Credits */}
 					<div
 						style={{
@@ -148,7 +161,7 @@ export function HomeFooter() {
 							opacity: 0.3,
 						}}
 					>
-						<span>© {new Date().getFullYear()} Kometalab</span>
+						<span>© {new Date().getFullYear()} {COMPANY.legalName}</span>
 					</div>
 				</div>
 			</div>

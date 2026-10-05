@@ -1,12 +1,7 @@
-interface OrganizationSchema {
-	'@context': 'https://schema.org'
-	'@type': 'Organization'
-	'@id': string
-	name: string
-	url: string
-	logo: string
-	sameAs: string[]
-}
+import { COMPANY, CONTACT } from '@/lib/contact'
+import { SERVICES } from '@/lib/services'
+
+type OrganizationSchema = Record<string, unknown>
 
 interface WebSiteSchema {
 	'@context': 'https://schema.org'
@@ -20,23 +15,7 @@ interface WebSiteSchema {
 	}
 }
 
-interface ProfessionalServiceSchema {
-	'@context': 'https://schema.org'
-	'@type': 'ProfessionalService'
-	'@id': string
-	name: string
-	url: string
-	areaServed: string
-	serviceType: string[]
-	address: {
-		'@type': 'PostalAddress'
-		addressLocality: string
-		addressCountry: string
-	}
-	provider: {
-		'@id': string
-	}
-}
+type ProfessionalServiceSchema = Record<string, unknown>
 
 interface BreadcrumbSchema {
 	'@context': 'https://schema.org'
@@ -58,16 +37,44 @@ export function getSiteUrl(): string {
 	return 'https://kometacom.com'
 }
 
+function getPostalAddress() {
+	return {
+		'@type': 'PostalAddress',
+		streetAddress: CONTACT.streetAddress,
+		postalCode: CONTACT.postalCode,
+		addressLocality: CONTACT.locality,
+		addressRegion: CONTACT.region,
+		addressCountry: 'ES',
+	}
+}
+
 export function getOrganizationSchema(): OrganizationSchema {
 	const siteUrl = getSiteUrl()
 	return {
 		'@context': 'https://schema.org',
 		'@type': 'Organization',
 		'@id': `${siteUrl}/#organization`,
-		name: 'Kometalab',
+		name: COMPANY.name,
+		legalName: COMPANY.legalName,
+		alternateName: COMPANY.alternateNames,
+		description: COMPANY.description,
 		url: siteUrl,
 		logo: `${siteUrl}/LOGO/LOGOKOMETA.svg`,
-		sameAs: [],
+		image: `${siteUrl}/og-image.png`,
+		email: CONTACT.email,
+		telephone: CONTACT.phoneE164,
+		address: getPostalAddress(),
+		areaServed: { '@type': 'Country', name: 'España' },
+		knowsAbout: SERVICES.flatMap((service) => service.keywords),
+		contactPoint: {
+			'@type': 'ContactPoint',
+			contactType: 'sales',
+			telephone: CONTACT.phoneE164,
+			email: CONTACT.email,
+			availableLanguage: ['es', 'en'],
+			areaServed: 'ES',
+		},
+		...(COMPANY.sameAs.length > 0 ? { sameAs: COMPANY.sameAs } : {}),
 	}
 }
 
@@ -86,30 +93,62 @@ export function getWebSiteSchema(): WebSiteSchema {
 	}
 }
 
+export function getServiceSchema(
+	service: (typeof SERVICES)[number],
+): Record<string, unknown> {
+	const siteUrl = getSiteUrl()
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		'@id': `${siteUrl}/servicios/${service.slug}#service`,
+		name: service.title,
+		serviceType: service.keywords[0],
+		description: service.summary,
+		url: `${siteUrl}/servicios/${service.slug}`,
+		keywords: service.keywords.join(', '),
+		provider: { '@id': `${siteUrl}/#localbusiness` },
+		areaServed: [
+			{ '@type': 'City', name: 'Madrid' },
+			{ '@type': 'Country', name: 'España' },
+		],
+	}
+}
+
 export function getProfessionalServiceSchema(): ProfessionalServiceSchema {
 	const siteUrl = getSiteUrl()
 	return {
 		'@context': 'https://schema.org',
 		'@type': 'ProfessionalService',
-		'@id': `${siteUrl}/#service`,
-		name: 'Kometalab',
+		'@id': `${siteUrl}/#localbusiness`,
+		name: COMPANY.name,
+		description: COMPANY.description,
 		url: siteUrl,
-		areaServed: 'ES',
-		serviceType: [
-			'Gabinete de prensa',
-			'Producción audiovisual',
-			'Branding',
-			'Gestión de redes sociales',
-			'Desarrollo web',
+		image: `${siteUrl}/og-image.png`,
+		logo: `${siteUrl}/LOGO/LOGOKOMETA.svg`,
+		email: CONTACT.email,
+		telephone: CONTACT.phoneE164,
+		address: getPostalAddress(),
+		areaServed: [
+			{ '@type': 'City', name: 'Madrid' },
+			{ '@type': 'Country', name: 'España' },
 		],
-		address: {
-			'@type': 'PostalAddress',
-			addressLocality: 'Madrid',
-			addressCountry: 'ES',
+		knowsAbout: SERVICES.flatMap((service) => service.keywords),
+		parentOrganization: { '@id': `${siteUrl}/#organization` },
+		hasOfferCatalog: {
+			'@type': 'OfferCatalog',
+			name: 'Servicios de Kometalab',
+			itemListElement: SERVICES.map((service) => ({
+				'@type': 'Offer',
+				itemOffered: {
+					'@type': 'Service',
+					'@id': `${siteUrl}/servicios/${service.slug}#service`,
+					name: service.title,
+					description: service.summary,
+					url: `${siteUrl}/servicios/${service.slug}`,
+				},
+			})),
 		},
-		provider: {
-			'@id': `${siteUrl}/#organization`,
-		},
+		...(COMPANY.sameAs.length > 0 ? { sameAs: COMPANY.sameAs } : {}),
 	}
 }
 
