@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react'
 import type { CSSProperties } from 'react'
-import Spline from '@splinetool/react-spline'
+import Spline from '@/components/safe-spline'
 import type { Application } from '@splinetool/runtime'
 
 interface IaSplineViewerProps {

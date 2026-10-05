@@ -8,7 +8,8 @@ import {
 	useState,
 } from 'react'
 import gsap from 'gsap'
-import Spline from '@splinetool/react-spline'
+import Spline from '@/components/safe-spline'
+import { CONTACT } from '@/lib/contact'
 
 interface ChatMessage {
 	role: 'user' | 'assistant'
@@ -22,22 +23,6 @@ interface Lead {
 
 type ChatPhase = 'idle' | 'ask-name' | 'ask-email' | 'ready'
 
-const CONTACT_KEYWORDS = [
-	'contacto',
-	'contactar',
-	'telefono',
-	'teléfono',
-	'email',
-	'correo',
-	'llamar',
-	'presupuesto',
-	'precio',
-	'hablar',
-	'reunión',
-	'reunion',
-	'cita',
-]
-
 const QUICK_OPTIONS = [
 	'Producción Audiovisual',
 	'Desarrollo Web',
@@ -50,10 +35,19 @@ const CONTACT_HINT_TEXT = 'Contactanos'
 const ACTION_REGEX = /<<ACTION:(.+?)>>/g
 const MEETING_REGEX = /<<MEETING:(.+?)>>/g
 
-function isContactQuery(text: string): boolean {
-	const lower = text.toLowerCase()
-	return CONTACT_KEYWORDS.some((kw) => lower.includes(kw))
+function formatTranscript(messages: ChatMessage[]): string {
+	return messages
+		.filter((m) => m.content.length > 0)
+		.map((m) =>
+			`${m.role === 'user' ? 'Cliente' : 'Kevin'}: ${m.content}`,
+		)
+		.join('\n')
 }
+
+const LEAD_ERROR_TEXT =
+	'No he podido pasar tus datos al equipo. Escríbenos por '
+	+ `WhatsApp al ${CONTACT.phone} o a ${CONTACT.email} `
+	+ 'y te atendemos enseguida.'
 
 function parseActions(text: string): {
 	clean: string
@@ -268,10 +262,11 @@ export default function ChatWidget() {
 					{
 						role: 'assistant',
 						content:
-							'📞 649 842 031\n'
-							+ '✉️ comunicacion@kometa.tv\n'
-							+ '📍 Calle Valportillo II 14, '
-							+ '1-2',
+							'¡Hola! Soy Kevin. Cuéntame qué '
+							+ 'necesitas y te preparamos una '
+							+ 'propuesta.\n\n'
+							+ `📞 / WhatsApp: ${CONTACT.phone}\n`
+							+ `✉️ ${CONTACT.email}`,
 					},
 				])
 			}, 300)
@@ -312,23 +307,40 @@ export default function ChatWidget() {
 		[],
 	)
 
-	const saveMeeting = useCallback(
-		(dateText: string) => {
-			if (!lead.email) return
-			fetch('/api/leads/meeting', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					name: lead.name,
-					email: lead.email,
-					service: firstServiceRef.current,
-					meeting: dateText,
-				}),
-			}).catch(() => {})
+	const postLead = useCallback(
+		async (payload: Record<string, unknown>) => {
+			try {
+				const res = await fetch('/api/leads', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						...payload,
+						page: window.location.pathname,
+					}),
+				})
+				if (!res.ok) throw new Error(String(res.status))
+			} catch {
+				addAssistantMessage(LEAD_ERROR_TEXT)
+			}
 		},
-		[lead],
+		[addAssistantMessage],
+	)
+
+	const saveMeeting = useCallback(
+		(dateText: string, history: ChatMessage[]) => {
+			if (!lead.email) return
+			postLead({
+				name: lead.name,
+				email: lead.email,
+				service: firstServiceRef.current || undefined,
+				meeting: dateText,
+				source: 'chat-meeting',
+				transcript: formatTranscript(history).slice(-8000),
+			})
+		},
+		[lead, postLead],
 	)
 
 	const streamChat = useCallback(
@@ -444,7 +456,10 @@ export default function ChatWidget() {
 			}
 
 			if (meeting) {
-				saveMeeting(meeting)
+				saveMeeting(meeting, [
+					...allMessages,
+					{ role: 'assistant', content: clean },
+				])
 			}
 
 			setIsStreaming(false)
@@ -470,15 +485,9 @@ export default function ChatWidget() {
 				}
 				setMessages((prev) => [...prev, userMsg])
 
-				if (isContactQuery(text)) {
-					setPhase('ready')
-					streamChat([userMsg])
-					return
-				}
-
 				addAssistantMessage(
-					'Encantado de ayudarte. '
-					+ '¿Cómo te llamas?',
+					'¡Genial! Para que el equipo pueda '
+					+ 'ayudarte, ¿cómo te llamas?',
 				)
 				setPhase('ask-name')
 				return
@@ -499,8 +508,10 @@ export default function ChatWidget() {
 			}
 
 			if (phase === 'ask-email') {
-				const emailRegex = /\S+@\S+\.\S+/
-				if (!emailRegex.test(text)) {
+				const emailMatch = text.match(
+					/[^\s@<>,;:]+@[^\s@<>,;:]+\.[a-z]{2,}/i,
+				)
+				if (!emailMatch) {
 					setMessages((prev) => [...prev, userMsg])
 					addAssistantMessage(
 						'No parece un email válido. '
@@ -509,9 +520,10 @@ export default function ChatWidget() {
 					return
 				}
 
+				const email = emailMatch[0]
 				const completeLead = {
 					name: lead.name,
-					email: text,
+					email,
 				}
 				setLead(completeLead)
 				setMessages((prev) => [...prev, userMsg])
@@ -521,17 +533,13 @@ export default function ChatWidget() {
 					(m) => m.role === 'user',
 				)
 
-				fetch('/api/leads', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						name: lead.name,
-						email: text,
-						service: firstServiceRef.current,
-					}),
-				}).catch(() => {})
+				postLead({
+					name: lead.name,
+					email,
+					service: firstServiceRef.current || undefined,
+					message: firstUserMsg?.content,
+					source: 'chat',
+				})
 
 				if (firstUserMsg) {
 					streamChat(
@@ -556,7 +564,7 @@ export default function ChatWidget() {
 						!(
 							m.role === 'assistant' &&
 							(m.content.includes(
-								'¿Cómo te llamas',
+								'te llamas?',
 							) ||
 								m.content.includes(
 									'¿Me dejas tu email',
@@ -587,6 +595,7 @@ export default function ChatWidget() {
 			lead,
 			messages,
 			addAssistantMessage,
+			postLead,
 			streamChat,
 		],
 	)
@@ -594,7 +603,15 @@ export default function ChatWidget() {
 	const handleActionClick = useCallback(
 		(action: string) => {
 			if (action === 'Llamar ahora') {
-				window.open('tel:649842031', '_self')
+				window.open(CONTACT.phoneHref, '_self')
+				return
+			}
+			if (action === 'WhatsApp') {
+				window.open(
+					CONTACT.whatsappHref,
+					'_blank',
+					'noopener,noreferrer',
+				)
 				return
 			}
 			sendText(

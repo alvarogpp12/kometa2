@@ -32,7 +32,7 @@ export default function IaChatPreview({
 	const [lead, setLead] = useState<Lead>({ name: '', email: '' })
 	const messagesEndRef = useRef<HTMLDivElement>(null)
 	const scrollRef = useRef<HTMLDivElement>(null)
-	const lastBubbleRef = useRef<HTMLDivElement>(null)
+	const lastBubbleRef = useRef<HTMLDivElement | null>(null)
 
 	const animateBubble = useCallback((el: HTMLDivElement | null) => {
 		if (!el) return

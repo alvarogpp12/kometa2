@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { useLenis } from '@/hooks/useLenis'
 
 interface ContactCtaButtonProps {
 	className?: string
@@ -12,6 +13,17 @@ export function ContactCtaButton({
 }: ContactCtaButtonProps) {
 	const buttonRef = useRef<HTMLButtonElement>(null)
 	const dotRef = useRef<HTMLSpanElement>(null)
+	const lenis = useLenis()
+
+	const goToContact = () => {
+		const target = document.getElementById('contacto')
+		if (!target) {
+			window.dispatchEvent(new Event('openKevinChat'))
+			return
+		}
+		if (lenis) lenis.scrollTo(target, { offset: -80 })
+		else target.scrollIntoView({ behavior: 'smooth' })
+	}
 
 	useEffect(() => {
 		const buttonElement = buttonRef.current
@@ -68,7 +80,9 @@ export function ContactCtaButton({
 				0.35,
 			)
 
-		return () => timeline.kill()
+		return () => {
+			timeline.kill()
+		}
 	}, [])
 
 	return (
@@ -77,9 +91,7 @@ export function ContactCtaButton({
 			type="button"
 			className={`ContactCtaButton ${className ?? ''}`.trim()}
 			data-cursor-hover
-			onClick={() =>
-				window.dispatchEvent(new Event('openKevinChat'))
-			}
+			onClick={goToContact}
 		>
 			<span ref={dotRef} className="ContactCtaButton-dot" />
 			<span className="ContactCtaButton-label">Contacto</span>

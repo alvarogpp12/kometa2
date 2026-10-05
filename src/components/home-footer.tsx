@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { ContactForm } from '@/components/contact-form'
 
 export function HomeFooter() {
 	const footerRef = useRef<HTMLElement>(null)
@@ -76,6 +77,8 @@ export function HomeFooter() {
 						</p>
 
 					</div>
+
+					<ContactForm />
 
 					{/* Nav links */}
 					<nav

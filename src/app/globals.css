@@ -3263,3 +3263,165 @@
 		padding: 2.4rem 1.4rem;
 	}
 }
+
+/* Contact form (footer) */
+.ContactForm {
+	display: grid;
+	gap: 4rem;
+	scroll-margin-top: 8rem;
+}
+
+@media (orientation: landscape) and (min-width: 900px) {
+	.ContactForm {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+		gap: 8rem;
+	}
+}
+
+.ContactForm-title {
+	font-size: 3.2rem;
+	font-weight: 600;
+	line-height: 1.1;
+	margin: 0 0 1.6rem;
+}
+
+@media (orientation: landscape) {
+	.ContactForm-title { font-size: 4.8rem; }
+}
+
+.ContactForm-lead {
+	font-size: 1.6rem;
+	line-height: 1.5;
+	opacity: 0.7;
+	margin: 0 0 3rem;
+	max-width: 44rem;
+}
+
+.ContactForm-direct {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 1.6rem;
+}
+
+.ContactForm-direct a {
+	text-decoration: underline;
+	text-underline-offset: 0.3em;
+	text-decoration-color: rgba(255, 255, 255, 0.3);
+	transition: color 0.15s;
+}
+
+.ContactForm-direct a:hover {
+	color: var(--color-red);
+}
+
+.ContactForm-address {
+	opacity: 0.5;
+}
+
+.ContactForm-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
+}
+
+.ContactForm-row {
+	display: grid;
+	gap: 1.6rem;
+}
+
+@media (min-width: 600px) {
+	.ContactForm-row { grid-template-columns: 1fr 1fr; }
+}
+
+.ContactForm-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	font-size: 1.3rem;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.ContactForm-field input,
+.ContactForm-field select,
+.ContactForm-field textarea {
+	width: 100%;
+	padding: 1.3rem 1.4rem;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	background: rgba(255, 255, 255, 0.05);
+	color: var(--color-white);
+	font: inherit;
+	font-size: 1.6rem;
+	outline: none;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.ContactForm-field textarea {
+	resize: vertical;
+	min-height: 11rem;
+}
+
+.ContactForm-field select option {
+	color: var(--color-black);
+}
+
+.ContactForm-field input:focus,
+.ContactForm-field select:focus,
+.ContactForm-field textarea:focus {
+	border-color: var(--color-red);
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.ContactForm-honeypot {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+.ContactForm-submit {
+	align-self: flex-start;
+	padding: 1.5rem 3rem;
+	border: 0;
+	border-radius: 999px;
+	background: var(--color-red);
+	color: var(--color-white);
+	font: inherit;
+	font-size: 1.6rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.15s, opacity 0.15s;
+}
+
+.ContactForm-submit:hover { transform: translateY(-1px); }
+.ContactForm-submit:disabled { opacity: 0.6; cursor: wait; }
+
+.ContactForm-error {
+	font-size: 1.4rem;
+	color: #ff8a8a;
+}
+
+.ContactForm-error a,
+.ContactForm-success a {
+	text-decoration: underline;
+}
+
+.ContactForm-success {
+	align-self: center;
+	font-size: 1.6rem;
+	padding: 3rem;
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ContactForm-successTitle {
+	font-size: 2.4rem;
+	font-weight: 600;
+	margin: 0 0 0.8rem;
+}
