@@ -26,14 +26,13 @@ const season = localFont({
 export const metadata: Metadata = {
 	metadataBase: new URL(getSiteUrl()),
 	title: {
-		default: 'Kometalab — Estrategia, Producción, Tecnología'
-			+ ' y Presencia en Madrid',
+		default: 'Kometalab · Productora audiovisual y agencia de'
+			+ ' comunicación en Madrid',
 		template: '%s — Kometalab',
 	},
 	description:
-		'Transformamos tus ideas en proyectos reales.'
-		+ ' Producción audiovisual, desarrollo web,'
-		+ ' IA aplicada y gabinete de prensa en Madrid.',
+		'Gabinete de prensa, producción audiovisual, branding,'
+		+ ' redes sociales y desarrollo web en Madrid.',
 	robots: {
 		index: true,
 		follow: true,

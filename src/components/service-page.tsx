@@ -113,7 +113,7 @@ export default function ServicePage({
 					<div className="wrapper-1290 SliceArtistHero-headWrapper">
 						<Link href="/" className="BackLink">
 							<span className="BackLink-title">
-								Go to homepage
+								Volver al inicio
 							</span>
 						</Link>
 						<span className="SliceArtistHero-headTimezone">

@@ -94,7 +94,7 @@ export function ContactCtaButton({
 			onClick={goToContact}
 		>
 			<span ref={dotRef} className="ContactCtaButton-dot" />
-			<span className="ContactCtaButton-label">Contacto</span>
+			<span className="ContactCtaButton-label">Pide presupuesto</span>
 		</button>
 	)
 }

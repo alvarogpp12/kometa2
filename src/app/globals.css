@@ -276,11 +276,16 @@
 
 @media (max-width: 900px) {
 	.HomeHero {
+		padding-top: 96px;
+		margin-bottom: 4rem;
+	}
+
+	.HomeHero .AnimatedLogo {
 		display: none;
 	}
 
 	.HeroIntro {
-		display: none;
+		margin-top: 0;
 	}
 }
 
@@ -3426,4 +3431,48 @@
 	font-size: 2.4rem;
 	font-weight: 600;
 	margin: 0 0 0.8rem;
+}
+
+/* Home claim */
+.HeroIntro-claim {
+	color: var(--color-black);
+	font-family: var(--font-custom);
+	font-size: 3.2rem;
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	margin: 0;
+	max-width: 22ch;
+}
+
+.HeroIntro-claimAccent {
+	color: var(--color-red);
+}
+
+.HeroIntro-descriptor {
+	color: var(--color-grey-2);
+	font-size: 1.5rem;
+	margin: 1.6rem 0 0;
+}
+
+@media (orientation: landscape) and (min-width: 901px) {
+	.HeroIntro-claim {
+		font-size: 5.2rem;
+	}
+
+	.HeroIntro-descriptor {
+		font-size: 1.8rem;
+	}
+}
+
+.HomeHero .HeroIntro-top {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2.4rem;
+}
+
+.HomeHero .HeroIntro-top .ContactCtaButton {
+	align-self: flex-start;
+	display: inline-flex;
+	white-space: nowrap;
 }

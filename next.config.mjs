@@ -9,6 +9,15 @@ const nextConfig = {
 			},
 		],
 	},
+	async redirects() {
+		return [
+			{
+				source: '/servicios/ia-aplicada',
+				destination: '/servicios/desarrollo-web',
+				permanent: true,
+			},
+		]
+	},
 	async headers() {
 		return [
 			{

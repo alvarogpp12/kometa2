@@ -36,14 +36,14 @@ const PROJECTS: ProjectItem[] = [
 		instagramQuery: 'González y González',
 	},
 	{
-		name: 'Sanvin x L´epicurien',
+		name: 'Sanvin x L’Épicurien',
 		slug: 'sanvinx-lepicurien',
 		video: VIDEO_URLS.sanvinxLepicurien,
 		aspect: '9:16',
 		instagramQuery: 'Sanvin Lepicurien',
 	},
 	{
-		name: 'D.O Madrid',
+		name: 'D.O. Vinos de Madrid',
 		slug: 'campana-vinos-de-madrid',
 		video: VIDEO_URLS.doMadrid,
 		aspect: '16:9',
@@ -246,10 +246,10 @@ export default function NoisegraphPage() {
 					href="/"
 					className="ProjectsPage-backLink"
 				>
-					Go to homepage
+					Volver al inicio
 				</Link>
 				<h2 className="ProjectsPage-headerTitle">
-					proyectos
+					producción audiovisual
 				</h2>
 				<span className="ProjectsPage-location">
 					MADRID{' '}
@@ -260,13 +260,16 @@ export default function NoisegraphPage() {
 			</div>
 
 				<div className="ProjectsPage-body">
-					<h1
+					<h1 className="sr-only">
+						Producción audiovisual en Madrid
+					</h1>
+					<h2
 						ref={titleRef}
 						className="ProjectsPage-title"
 						key={activeProject.name}
 					>
 						{activeProject.name}
-					</h1>
+					</h2>
 
 					<div className="ProjectsPage-content">
 						<div className="ProjectsPage-mobileArrows">
@@ -370,30 +373,34 @@ export default function NoisegraphPage() {
 						}}
 					>
 						<div className="NoiseText-row">
-							<span className="NoiseText-label">Problema</span>
+							<span className="NoiseText-label">Qué hacemos</span>
 							<p className="NoiseText-value">
-								¿Coordinas freelancers para cada proyecto?
-								¿Pierdes tiempo gestionando proveedores?
+								Spots para televisión y digital, branded
+								content, vídeo corporativo y de producto,
+								vídeo para redes sociales y cobertura de
+								eventos.
 							</p>
 						</div>
 						<div className="NoiseText-row">
-							<span className="NoiseText-label">Solución</span>
+							<span className="NoiseText-label">Postproducción</span>
 							<p className="NoiseText-value">
-								Un solo equipo para toda tu comunicación:
-								estrategia, producción y entrega.
+								Montaje, etalonaje, motion graphics y
+								subtitulado. Adaptamos cada pieza a
+								vertical, cuadrado y horizontal.
 							</p>
 						</div>
 						<div className="NoiseText-row">
-							<span className="NoiseText-label">Para quién</span>
+							<span className="NoiseText-label">Proceso</span>
 							<p className="NoiseText-value">
-								Para marcas que quieren eficiencia real
-								y agencias que buscan un partner de confianza.
+								Brief, guion y storyboard, preproducción,
+								rodaje, postproducción y entrega.
 							</p>
 						</div>
 						<div className="NoiseText-row --last">
 							<span className="NoiseText-label">Dónde</span>
 							<p className="NoiseText-value --accent">
-								Sede en Madrid, pero vamos donde estés.
+								Equipo propio en Madrid. Rodamos en
+								toda España.
 							</p>
 						</div>
 					</div>

@@ -96,11 +96,11 @@ export function getProfessionalServiceSchema(): ProfessionalServiceSchema {
 		url: siteUrl,
 		areaServed: 'ES',
 		serviceType: [
-			'Producción audiovisual',
-			'Desarrollo web',
-			'IA aplicada',
 			'Gabinete de prensa',
-			'Estrategia digital',
+			'Producción audiovisual',
+			'Branding',
+			'Gestión de redes sociales',
+			'Desarrollo web',
 		],
 		address: {
 			'@type': 'PostalAddress',

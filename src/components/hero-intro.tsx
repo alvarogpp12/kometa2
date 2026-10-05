@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ContactCtaButton } from '@/components/contact-cta-button'
 
 export function HeroIntro() {
 	const [loaded, setLoaded] = useState(false)
@@ -21,25 +22,20 @@ export function HeroIntro() {
 			}}
 		>
 			<div className="HeroIntro-top">
-				<div className="HeroIntro-title">
-					<p className="HeroIntro-line HeroIntro-line--intro">
-						Transformamos tus ideas en proyectos reales.
-					</p>
-					<p className="HeroIntro-line HeroIntro-line--words">
-						<span className="HeroIntro-word HeroIntro-word--full">
-							Estrategia
-						</span>{' '}
-						<span className="HeroIntro-word HeroIntro-word--soft">
-							Produccion
-						</span>{' '}
-						<span className="HeroIntro-word HeroIntro-word--full">
-							Tecnologia
-						</span>{' '}
-						<span className="HeroIntro-word HeroIntro-word--soft">
-							Presencia
+				<div>
+					<h1 className="HeroIntro-claim">
+						Nuestras madres siguen sin entender
+						a qué nos dedicamos.{' '}
+						<span className="HeroIntro-claimAccent">
+							Nuestros clientes, sí.
 						</span>
+					</h1>
+					<p className="HeroIntro-descriptor">
+						Producción audiovisual, publicidad y
+						comunicación en Madrid.
 					</p>
 				</div>
+				<ContactCtaButton />
 			</div>
 		</div>
 	)

@@ -13,22 +13,22 @@ const FEATURES = [
 	{
 		title: 'Diseño a medida',
 		desc:
-			'Sin plantillas. Cada interfaz se diseña desde ' +
-			'cero para reflejar tu marca y convertir.',
+			'Sin plantillas. Diseño UX/UI propio ' +
+			'para cada proyecto.',
 		video: VIDEO_URLS.disenoAMedida,
 	},
 	{
-		title: 'Rendimiento extremo',
+		title: 'Rendimiento y SEO',
 		desc:
-			'Carga en milisegundos. Core Web Vitals ' +
-			'optimizados para SEO y experiencia real.',
+			'Webs rápidas, optimizadas para ' +
+			'Core Web Vitals y SEO técnico.',
 		video: VIDEO_URLS.rendimientoExtremo,
 	},
 	{
-		title: 'Escalable desde el día uno',
+		title: 'Escalable',
 		desc:
-			'Arquitectura moderna que crece contigo. ' +
-			'Next.js, React y deploy global.',
+			'Next.js, React y Headless CMS. ' +
+			'Preparada para crecer con tu negocio.',
 		video: VIDEO_URLS.escalableDiaUno,
 	},
 ]
@@ -36,27 +36,25 @@ const FEATURES = [
 const PROCESS_STEPS = [
 	{
 		num: '01',
-		title: 'Estrategia & UX',
+		title: 'Briefing y arquitectura',
 		desc:
-			'Definimos objetivos, mapeamos flujos de ' +
-			'usuario y diseñamos la arquitectura de ' +
-			'información.',
+			'Objetivos, estructura de contenidos ' +
+			'y arquitectura de la web.',
 	},
 	{
 		num: '02',
-		title: 'Diseño visual',
+		title: 'Diseño UX/UI',
 		desc:
-			'Creamos un sistema de diseño único: ' +
-			'tipografía, color, espaciado y componentes ' +
-			'que comunican tu marca.',
+			'Wireframes y diseño de cada pantalla, ' +
+			'adaptado a móvil.',
 	},
 	{
 		num: '03',
-		title: 'Desarrollo & lanzamiento',
+		title: 'Desarrollo y lanzamiento',
 		desc:
-			'Código limpio, testing riguroso y deploy ' +
-			'optimizado. Tu web en producción, lista ' +
-			'para escalar.',
+			'Desarrollo, pruebas, SEO técnico y ' +
+			'puesta en producción. Después, ' +
+			'mantenimiento y mejoras.',
 	},
 ]
 
@@ -269,7 +267,7 @@ export default function WebDevPage() {
 				<div className="wrapper-1290 SliceArtistHero-headWrapper">
 					<Link href="/" className="BackLink">
 						<span className="BackLink-title">
-							Go to homepage
+							Volver al inicio
 						</span>
 					</Link>
 					<span className="SliceArtistHero-headTimezone">
@@ -291,9 +289,7 @@ export default function WebDevPage() {
 							</span>
 						</h1>
 						<p className="WebDevPage-heroSub">
-							Webs que no solo se ven bien.
-							<br />
-							Funcionan, convierten y escalan.
+							Diseño UX/UI, desarrollo y SEO.
 						</p>
 					</div>
 				</div>
@@ -307,15 +303,15 @@ export default function WebDevPage() {
 						data-reveal
 					>
 						<p className="WebDevPage-statementText">
-							Si tu web no genera oportunidades,
+							Webs corporativas, tiendas online,
 							<br />
-							solo está ocupando espacio.
+							landing pages, portales B2B y CRM.
 						</p>
 						<p className="WebDevPage-statementSub">
-							Creamos plataformas digitales diseñadas
-							desde cero para posicionar, convertir y
-							escalar. Sin plantillas. Sin soluciones
-							estándar.
+							Diseñamos y programamos a medida.
+							También integramos la web con tu ERP,
+							automatizamos procesos y desarrollamos
+							chatbots con IA.
 						</p>
 					</div>
 				</div>
@@ -332,7 +328,7 @@ export default function WebDevPage() {
 						className="WebDevPage-sectionTitle"
 						data-reveal
 					>
-						Qué nos diferencia
+						Cómo son nuestras webs
 					</h2>
 					<div className="WebDevPage-featuresGrid">
 						{FEATURES.map((f, i) => (
@@ -381,8 +377,7 @@ export default function WebDevPage() {
 							className="WebDevPage-processIntro"
 							data-reveal
 						>
-							Un proceso claro, sin sorpresas.
-							De la idea al lanzamiento.
+							Del briefing al lanzamiento.
 						</p>
 					</div>
 
@@ -432,17 +427,13 @@ export default function WebDevPage() {
 								className="WebDevPage-sectionTitle"
 								data-reveal
 							>
-								Tecnología que
-								<br />
-								impulsa resultados
+								Tecnología
 							</h2>
 							<p
 								className="WebDevPage-techDesc"
 								data-reveal
 							>
-								Desarrollamos con las herramientas
-								más avanzadas del ecosistema web
-								moderno.
+								El stack con el que trabajamos.
 							</p>
 						</div>
 						<div className="WebDevPage-techRight">

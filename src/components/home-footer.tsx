@@ -52,24 +52,24 @@ export function HomeFooter() {
 					>
 						{[
 							{
+								label: 'Prensa',
+								href: '/servicios/gabinete-de-prensa',
+								seoLabel: 'Gabinete de Prensa',
+							},
+							{
 								label: 'Producción',
 								href: '/servicios/produccion-audiovisual',
 								seoLabel: 'Producción Audiovisual',
 							},
 							{
-								label: 'Desarrollo Web',
+								label: 'Branding',
+								href: '/servicios/branding-y-redes-sociales',
+								seoLabel: 'Branding y Redes Sociales',
+							},
+							{
+								label: 'Web',
 								href: '/servicios/desarrollo-web',
 								seoLabel: 'Desarrollo Web',
-							},
-							{
-								label: 'IA Aplicada',
-								href: '/servicios/ia-aplicada',
-								seoLabel: 'IA Aplicada',
-							},
-							{
-								label: 'Prensa',
-								href: '/servicios/gabinete-de-prensa',
-								seoLabel: 'Gabinete de Prensa',
 							},
 						].map((item) => (
 							<Link

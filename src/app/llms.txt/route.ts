@@ -7,8 +7,8 @@ export async function GET(): Promise<Response> {
 	const lines = [
 		'# Kometalab',
 		'',
-		'> Transformamos tus ideas en proyectos reales.',
-		'> Estrategia, producción, tecnología y presencia.',
+		'> Productora audiovisual y agencia de comunicación en Madrid.',
+		'> Gabinete de prensa, producción audiovisual, branding, redes sociales y desarrollo web.',
 		'',
 		'## Servicios',
 		'',

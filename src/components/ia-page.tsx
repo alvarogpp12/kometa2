@@ -170,7 +170,7 @@ export default function IaPage() {
 								className="BackLink-title"
 								style={{ color: 'rgba(255,255,255,0.5)' }}
 							>
-								Go to homepage
+								Volver al inicio
 							</span>
 						</Link>
 						<span className="SliceArtistHero-headTimezone"

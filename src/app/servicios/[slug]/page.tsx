@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import ServicePage from '@/components/service-page'
 import WebDevPage from '@/components/web-dev-page'
 import NoisegraphPage from '@/components/noisegraph-page'
-import IaPage from '@/components/ia-page'
+import BrandingPage from '@/components/branding-page'
 import PressPage from '@/components/press-page'
 import { SERVICES } from '@/lib/services'
 import { getBreadcrumbSchema } from '@/lib/seo'
@@ -23,37 +23,33 @@ interface ServiceSeo {
 }
 
 const SERVICE_SEO: Record<string, ServiceSeo> = {
-	'produccion-audiovisual': {
-		title: 'Producción Audiovisual en Madrid',
+	'gabinete-de-prensa': {
+		title: 'Gabinete de Prensa en Madrid',
 		description:
-			'Un solo equipo para toda tu comunicación:'
-			+ ' estrategia, producción y entrega.'
-			+ ' Para marcas que quieren eficiencia real.'
-			+ ' Sede en Madrid, pero vamos donde estés.',
+			'Prensa, televisión y medios digitales con nuestro'
+			+ ' socio GTRES. Notas de prensa, convocatorias,'
+			+ ' photocalls, ruedas de prensa y clipping.',
+	},
+	'produccion-audiovisual': {
+		title: 'Productora Audiovisual en Madrid',
+		description:
+			'Spots, branded content, vídeo corporativo y vídeo'
+			+ ' para redes sociales. Preproducción, rodaje y'
+			+ ' postproducción con equipo propio.',
+	},
+	'branding-y-redes-sociales': {
+		title: 'Branding y Redes Sociales en Madrid',
+		description:
+			'Naming, identidad corporativa, gestión de redes'
+			+ ' sociales, community management y publicidad'
+			+ ' en Meta y TikTok.',
 	},
 	'desarrollo-web': {
 		title: 'Desarrollo Web en Madrid',
 		description:
-			'Diseñamos experiencias digitales que combinan'
-			+ ' estética y funcionalidad.'
-			+ ' Webs a medida, orientadas a conversión y'
-			+ ' construidas como plataformas de crecimiento.',
-	},
-	'ia-aplicada': {
-		title: 'IA Aplicada en Madrid',
-		description:
-			'Integramos IA en procesos creativos y'
-			+ ' estratégicos con enfoque de negocio.'
-			+ ' Automatización, optimización y escalabilidad'
-			+ ' sin perder identidad.',
-	},
-	'gabinete-de-prensa': {
-		title: 'Gabinete de Prensa en Madrid',
-		description:
-			'Activamos tu evento y marca en medios nacionales'
-			+ ' e internacionales. Prensa escrita, televisión'
-			+ ' y medios digitales, a través de nuestro'
-			+ ' socio GTRES.',
+			'Webs corporativas a medida, tiendas online,'
+			+ ' landing pages, portales B2B y CRM.'
+			+ ' Diseño UX/UI, desarrollo y SEO.',
 	},
 }
 
@@ -143,11 +139,11 @@ export default function ServiceDetailPage({
 		)
 	}
 
-	if (service.slug === 'ia-aplicada') {
+	if (service.slug === 'branding-y-redes-sociales') {
 		return (
 			<>
 				{schemaScript}
-				<IaPage />
+				<BrandingPage />
 			</>
 		)
 	}

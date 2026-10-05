@@ -10,39 +10,39 @@ export interface ServiceContent {
 
 export const SERVICES: ServiceContent[] = [
 	{
+		slug: 'gabinete-de-prensa',
+		title: 'Gabinete de Prensa',
+		previewVideo: VIDEO_URLS.video20260216,
+		introFirst:
+			'Prensa, televisión y medios digitales, con nuestro socio GTRES.',
+		introSecond:
+			'Notas de prensa, convocatorias, relación con medios, photocalls, ruedas de prensa y clipping.',
+	},
+	{
 		slug: 'produccion-audiovisual',
-		title: 'Produccion Audiovisual',
+		title: 'Producción Audiovisual',
 		previewVideo: VIDEO_URLS.adealfar,
 		introFirst:
-			'¿Coordinas freelancers para cada proyecto? ¿Pierdes tiempo gestionando proveedores?',
+			'Spots, branded content, vídeo corporativo y vídeo para redes sociales.',
 		introSecond:
-			'Un solo equipo para toda tu comunicación: estrategia, producción y entrega. Para marcas que quieren eficiencia real y agencias que buscan un partner de confianza. Sede en Madrid, pero vamos donde estés.',
+			'Preproducción, rodaje y postproducción con equipo propio.',
+	},
+	{
+		slug: 'branding-y-redes-sociales',
+		title: 'Branding y Redes Sociales',
+		previewVideo: VIDEO_URLS.reel1,
+		introFirst:
+			'Naming, identidad corporativa y gestión de redes sociales.',
+		introSecond:
+			'Calendario editorial, community management y publicidad en Meta y TikTok.',
 	},
 	{
 		slug: 'desarrollo-web',
 		title: 'Desarrollo Web',
 		previewVideo: VIDEO_URLS.desarrolloWeb,
 		introFirst:
-			'Diseñamos experiencias digitales que combinan estética y funcionalidad.',
+			'Webs corporativas, tiendas online, landing pages, portales B2B y CRM.',
 		introSecond:
-			'Webs a medida, orientadas a conversión y construidas como plataformas de crecimiento. Una web no es presencia. Es estructura.',
-	},
-	{
-		slug: 'ia-aplicada',
-		title: 'IA Aplicada',
-		previewVideo: VIDEO_URLS.reel1,
-		introFirst:
-			'Integramos IA en procesos creativos y estratégicos con enfoque de negocio.',
-		introSecond:
-			'Automatización, optimización y escalabilidad sin perder identidad. La tecnología no sustituye la visión. La amplifica.',
-	},
-	{
-		slug: 'gabinete-de-prensa',
-		title: 'Gabinete de Prensa',
-		previewVideo: VIDEO_URLS.video20260216,
-		introFirst:
-			'Activamos tu evento/marca en medios nacionales e internacionales.',
-		introSecond:
-			'Prensa escrita, televisión y medios digitales, a través de nuestro socio GTRES.',
+			'Diseño UX/UI, desarrollo y SEO. Automatización de procesos y chatbots con IA.',
 	},
 ]

@@ -3,43 +3,40 @@ import { AnimatedLogo } from '@/components/animated-logo'
 import { HeroIntro } from '@/components/hero-intro'
 import { HomeShowreel } from '@/components/home-showreel'
 import { HomeFamily } from '@/components/home-family'
-import IaSplineViewer from '@/components/ia-spline-viewer'
 import PlatePreview from '@/components/plate-preview'
 
 export const metadata: Metadata = {
-	title: 'Transformamos tus ideas en proyectos reales',
+	title: {
+		absolute:
+			'Kometalab · Productora audiovisual y agencia de'
+			+ ' comunicación en Madrid',
+	},
 	description:
-		'Estrategia, producción, tecnología y presencia.'
-		+ ' Un solo equipo para toda tu comunicación'
-		+ ' en Madrid.',
+		'Gabinete de prensa, producción audiovisual, branding,'
+		+ ' redes sociales y desarrollo web en Madrid.',
 	alternates: {
 		canonical: '/',
 	},
 	openGraph: {
-		title: 'Kometalab — Transformamos tus ideas'
-			+ ' en proyectos reales',
+		title: 'Kometalab — Nuestras madres siguen sin entender'
+			+ ' a qué nos dedicamos. Nuestros clientes, sí.',
 		description:
-			'Estrategia, producción, tecnología y presencia.'
-			+ ' Un solo equipo para toda tu comunicación.',
+			'Productora audiovisual y agencia de comunicación'
+			+ ' en Madrid.',
 		url: '/',
 	},
 	twitter: {
-		title: 'Kometalab — Transformamos tus ideas'
-			+ ' en proyectos reales',
+		title: 'Kometalab — Nuestras madres siguen sin entender'
+			+ ' a qué nos dedicamos. Nuestros clientes, sí.',
 		description:
-			'Estrategia, producción, tecnología y presencia.'
-			+ ' Un solo equipo para toda tu comunicación.',
+			'Productora audiovisual y agencia de comunicación'
+			+ ' en Madrid.',
 	},
 }
 
 export default function HomePage() {
 	return (
 		<>
-		<h1 className="sr-only">
-			Kometalab: estrategia, producción audiovisual,
-			desarrollo web, IA aplicada y gabinete de prensa
-			en Madrid
-		</h1>
 			<section className="HomeHero">
 				<div className="wrapper">
 					<AnimatedLogo />
@@ -51,22 +48,6 @@ export default function HomePage() {
 
 			<HomeShowreel />
 			<HomeFamily
-				iaMedia={
-					<IaSplineViewer
-						className="SliceHomeArtists-spline"
-						scene="https://prod.spline.design/QXi9B-cOSBcQ8hPw/scene.splinecode"
-						style={{
-							position: 'absolute',
-							width: '500px',
-							height: '500px',
-							top: '50%',
-							left: '50%',
-							transform:
-								'translate(-50%, -50%) '
-								+ 'scale(0.561)',
-						}}
-					/>
-				}
 				webDevMedia={
 					<PlatePreview
 						className="SliceHomeArtists-mediaVisual"

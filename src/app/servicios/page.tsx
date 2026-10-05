@@ -5,9 +5,8 @@ import { SERVICES } from '@/lib/services'
 export const metadata: Metadata = {
 	title: 'Servicios',
 	description:
-		'Producción audiovisual, desarrollo web,'
-		+ ' IA aplicada y gabinete de prensa.'
-		+ ' Un solo equipo para toda tu comunicación'
+		'Gabinete de prensa, producción audiovisual,'
+		+ ' branding, redes sociales y desarrollo web'
 		+ ' en Madrid.',
 	alternates: {
 		canonical: '/servicios',
@@ -15,15 +14,15 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Servicios — Kometalab',
 		description:
-			'Producción audiovisual, desarrollo web,'
-			+ ' IA aplicada y gabinete de prensa en Madrid.',
+			'Gabinete de prensa, producción audiovisual,'
+			+ ' branding, redes sociales y desarrollo web.',
 		url: '/servicios',
 	},
 	twitter: {
 		title: 'Servicios — Kometalab',
 		description:
-			'Producción audiovisual, desarrollo web,'
-			+ ' IA aplicada y gabinete de prensa en Madrid.',
+			'Gabinete de prensa, producción audiovisual,'
+			+ ' branding, redes sociales y desarrollo web.',
 	},
 }
 

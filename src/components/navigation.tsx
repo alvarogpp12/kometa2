@@ -7,24 +7,24 @@ import gsap from 'gsap'
 
 const NAV_LINKS = [
 	{
+		href: '/servicios/gabinete-de-prensa',
+		label: 'Prensa',
+		seoLabel: 'Gabinete de Prensa',
+	},
+	{
 		href: '/servicios/produccion-audiovisual',
 		label: 'Producción',
 		seoLabel: 'Producción Audiovisual',
 	},
 	{
+		href: '/servicios/branding-y-redes-sociales',
+		label: 'Branding',
+		seoLabel: 'Branding y Redes Sociales',
+	},
+	{
 		href: '/servicios/desarrollo-web',
-		label: 'Desarrollo Web',
+		label: 'Web',
 		seoLabel: 'Desarrollo Web',
-	},
-	{
-		href: '/servicios/ia-aplicada',
-		label: 'IA Aplicada',
-		seoLabel: 'IA Aplicada',
-	},
-	{
-		href: '/servicios/gabinete-de-prensa',
-		label: 'Prensa',
-		seoLabel: 'Gabinete de Prensa',
 	},
 ]
 

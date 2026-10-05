@@ -27,8 +27,8 @@ const PILLARS = [
 				<line x1="6" y1="32" x2="18" y2="32" />
 			</svg>
 		),
-		title: 'Prensa escrita',
-		desc: 'Activamos presencia en los principales medios impresos y digitales del país.',
+		title: 'Prensa escrita y digital',
+		desc: 'Notas de prensa, convocatorias y gestión de entrevistas en medios nacionales.',
 	},
 	{
 		icon: (
@@ -47,7 +47,7 @@ const PILLARS = [
 			</svg>
 		),
 		title: 'Televisión',
-		desc: 'Conseguimos apariciones en programas y informativos de cadenas nacionales.',
+		desc: 'Apariciones en programas e informativos de cadenas nacionales.',
 	},
 	{
 		icon: (
@@ -67,7 +67,7 @@ const PILLARS = [
 			</svg>
 		),
 		title: 'Eventos',
-		desc: 'Cubrimos y distribuimos photocalls, alfombras rojas y ruedas de prensa.',
+		desc: 'Photocalls, presentaciones y ruedas de prensa. Cubrimos el evento y distribuimos las imágenes a medios.',
 	},
 ]
 
@@ -113,7 +113,7 @@ const CLIENT_LOGOS = [
 const PROCESS_STEPS = [
 	{
 		number: '01',
-		title: 'Definimos la acción',
+		title: 'Estrategia',
 		icon: (
 			<svg
 				viewBox="0 0 40 40"
@@ -130,7 +130,7 @@ const PROCESS_STEPS = [
 	},
 	{
 		number: '02',
-		title: 'Activamos medios',
+		title: 'Convocatoria',
 		icon: (
 			<svg
 				viewBox="0 0 40 40"
@@ -146,7 +146,7 @@ const PROCESS_STEPS = [
 	},
 	{
 		number: '03',
-		title: 'Cubrimos el evento',
+		title: 'Cobertura',
 		icon: (
 			<svg
 				viewBox="0 0 40 40"
@@ -165,7 +165,7 @@ const PROCESS_STEPS = [
 	},
 	{
 		number: '04',
-		title: 'Medimos resultados',
+		title: 'Clipping',
 		icon: (
 			<svg
 				viewBox="0 0 40 40"
@@ -406,7 +406,7 @@ export default function PressPage() {
 				<div className="wrapper-1290 SliceArtistHero-headWrapper">
 					<Link href="/" className="BackLink">
 						<span className="BackLink-title">
-							Go to homepage
+							Volver al inicio
 						</span>
 					</Link>
 					<span className="SliceArtistHero-headTimezone">
@@ -435,16 +435,16 @@ export default function PressPage() {
 								className="PressPage-introSerif"
 								data-intro-line
 							>
-								Activamos tu evento/marca en medios
-								nacionales e internacionales.
+								Prensa, televisión y medios digitales,
+								con nuestro socio GTRES.
 							</p>
 							<p
 								className="PressPage-introText"
 								data-intro-line
 							>
-								Prensa escrita, televisión y medios
-								digitales, a través de nuestro
-								socio GTRES.
+								Notas de prensa, convocatorias, relación
+								con medios, photocalls, ruedas de prensa
+								y clipping.
 							</p>
 						</div>
 					</div>
@@ -507,7 +507,7 @@ export default function PressPage() {
 			<section className="PressPage-mediaLogos">
 				<div className="wrapper-1290">
 					<h2 className="PressPage-mediaTitle">
-						Medios donde activamos presencia
+						Medios donde hemos salido
 					</h2>
 				</div>
 				<div className="PressPage-marquee">

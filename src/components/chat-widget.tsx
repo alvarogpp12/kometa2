@@ -24,10 +24,10 @@ interface Lead {
 type ChatPhase = 'idle' | 'ask-name' | 'ask-email' | 'ready'
 
 const QUICK_OPTIONS = [
-	'Producción Audiovisual',
-	'Desarrollo Web',
-	'IA Aplicada',
 	'Gabinete de Prensa',
+	'Producción Audiovisual',
+	'Branding y Redes Sociales',
+	'Desarrollo Web',
 	'Solicitar presupuesto',
 ]
 const CONTACT_HINT_TEXT = 'Contactanos'
