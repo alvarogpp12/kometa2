@@ -32,52 +32,10 @@ export function HomeFooter() {
 				<div
 					style={{
 						display: 'flex',
-						gap: '6rem',
+						gap: '3.5rem',
 						flexDirection: 'column',
 					}}
 				>
-					{/* Top: CTA + nav */}
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '3rem',
-						}}
-					>
-						<p
-							className="AppFooter-contentText"
-							style={{
-								opacity: inView ? 1 : 0,
-								transform: inView
-									? 'translateY(0)'
-									: 'translateY(3rem)',
-								transition:
-									'all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)',
-							}}
-						>
-							si tienes una visión ambiciosa,
-							<br />
-							juntos la construiremos
-						</p>
-
-						<p
-							style={{
-								fontSize: '1.6rem',
-								opacity: inView ? 0.6 : 0,
-								maxWidth: '44rem',
-								lineHeight: 1.5,
-								transition: 'opacity 0.6s ease 0.2s',
-							}}
-						>
-							Nuestro equipo creativo hace tus ideas
-							realidad, contamos con lo mejor del sector
-							nada más. No seguimos tendencias. No
-							improvisamos. No hacemos marketing
-							superficial.
-						</p>
-
-					</div>
-
 					<ContactForm />
 
 					{/* Nav links */}
@@ -85,8 +43,9 @@ export function HomeFooter() {
 						aria-label="Servicios principales"
 						style={{
 							display: 'flex',
-							flexDirection: 'column',
-							gap: '2.7rem',
+							flexWrap: 'wrap',
+							columnGap: '3.2rem',
+							rowGap: '1.6rem',
 							opacity: inView ? 1 : 0,
 							transition: 'opacity 0.6s ease 0.4s',
 						}}

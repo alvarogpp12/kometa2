@@ -847,36 +847,38 @@
 
 /* Footer */
 .AppFooter {
-	padding-bottom: 4rem;
+	padding-bottom: 1.2rem;
+}
+
+.AppFooter.wrapper {
+	max-width: 168rem;
+	padding-inline: 1.2rem;
 }
 
 @media (orientation: landscape) {
-	.AppFooter { padding-bottom: 6.4rem; }
+	.AppFooter { padding-bottom: 2rem; }
+	.AppFooter.wrapper { padding-inline: 2rem; }
 }
 
 .AppFooter-wrapper {
 	background-color: var(--color-offblack);
-	border-radius: 10px;
+	border-radius: 28px;
 	color: var(--color-white);
-	padding-block: 4rem;
+	padding-block: 3.2rem;
 	padding-inline: 2rem;
 }
 
 @media (orientation: landscape) {
 	.AppFooter-wrapper {
-		padding-block: 8.2rem;
-		padding-inline: 8rem;
-		padding-bottom: 10rem;
+		border-radius: 48px;
+		padding-block: 5rem 4rem;
+		padding-inline: 6rem;
 	}
 }
 
 .AppFooter-logo {
-	margin-top: 6rem;
+	margin-top: 1rem;
 	width: 100%;
-}
-
-@media (orientation: landscape) {
-	.AppFooter-logo { margin-top: 11rem; }
 }
 
 .AppFooter-logo svg {
@@ -886,7 +888,7 @@
 
 .AppFooter-contentText {
 	font-size: 2rem;
-	margin-bottom: 2rem;
+	margin-bottom: 0;
 }
 
 @media (orientation: landscape) {
@@ -3286,7 +3288,7 @@
 }
 
 @media (orientation: landscape) {
-	.ContactForm-title { font-size: 4.8rem; }
+	.ContactForm-title { font-size: 4rem; }
 }
 
 .ContactForm-lead {

@@ -56,7 +56,7 @@ export function ContactForm() {
 		<section id="contacto" className="ContactForm" aria-labelledby="contacto-title">
 			<div className="ContactForm-intro">
 				<h2 id="contacto-title" className="ContactForm-title">
-					Cuéntanos tu proyecto
+					Si tienes una visión ambiciosa, juntos la construiremos
 				</h2>
 				<p className="ContactForm-lead">
 					Te respondemos en menos de 24 horas laborables con una
