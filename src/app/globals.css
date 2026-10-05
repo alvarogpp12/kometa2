@@ -3476,3 +3476,45 @@
 	display: inline-flex;
 	white-space: nowrap;
 }
+
+/* Floating WhatsApp button */
+.WhatsAppButton {
+	align-items: center;
+	background-color: #25d366;
+	border-radius: 50%;
+	bottom: max(2rem, env(safe-area-inset-bottom));
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+	color: var(--color-white);
+	display: flex;
+	height: 5.6rem;
+	justify-content: center;
+	position: fixed;
+	right: 2rem;
+	transition: transform 0.2s ease;
+	width: 5.6rem;
+	z-index: 9999;
+}
+
+.WhatsAppButton:hover {
+	transform: scale(1.06);
+}
+
+.WhatsAppButton svg {
+	fill: currentColor;
+	height: 3rem;
+	width: 3rem;
+}
+
+@media (orientation: landscape) {
+	.WhatsAppButton {
+		bottom: 3rem;
+		height: 6.4rem;
+		right: 3rem;
+		width: 6.4rem;
+	}
+
+	.WhatsAppButton svg {
+		height: 3.4rem;
+		width: 3.4rem;
+	}
+}

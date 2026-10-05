@@ -7,7 +7,7 @@ import { Navigation } from '@/components/navigation'
 import { Preloader } from '@/components/preloader'
 import { PageTransition } from '@/components/page-transition'
 import { LenisProvider } from '@/components/LenisProvider'
-import ChatWidget from '@/components/chat-widget'
+import { WhatsAppButton } from '@/components/whatsapp-button'
 import { HomeFooter } from '@/components/home-footer'
 import {
 	getOrganizationSchema,
@@ -125,7 +125,7 @@ export default function RootLayout({
 					</div>
 				</LenisProvider>
 				<Navigation />
-				<ChatWidget />
+				<WhatsAppButton />
 				<Analytics />
 				<SpeedInsights />
 			</body>

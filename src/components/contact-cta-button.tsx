@@ -17,10 +17,7 @@ export function ContactCtaButton({
 
 	const goToContact = () => {
 		const target = document.getElementById('contacto')
-		if (!target) {
-			window.dispatchEvent(new Event('openKevinChat'))
-			return
-		}
+		if (!target) return
 		if (lenis) lenis.scrollTo(target, { offset: -80 })
 		else target.scrollIntoView({ behavior: 'smooth' })
 	}
