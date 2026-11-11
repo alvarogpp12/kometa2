@@ -26,12 +26,12 @@ export default function robots(): MetadataRoute.Robots {
 			{
 				userAgent: '*',
 				allow: '/',
-				disallow: '/api/',
+				disallow: ['/api/', '/produccion'],
 			},
 			{
 				userAgent: AI_CRAWLERS,
 				allow: '/',
-				disallow: '/api/',
+				disallow: ['/api/', '/produccion'],
 			},
 		],
 		sitemap: `${siteUrl}/sitemap-index.xml`,
