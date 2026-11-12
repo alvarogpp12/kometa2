@@ -4,7 +4,7 @@ import { PRIVATE_HEADERS, rejectUnauthorized } from '../auth'
 export const dynamic = 'force-dynamic'
 
 const BLOB_PATH = 'produccion/paquirri-plan.json'
-const COLLECTIONS = ['invitados', 'mesas', 'escenarios'] as const
+const COLLECTIONS = ['invitados', 'mesas', 'escenarios', 'estado'] as const
 const ID_RE = /^[A-Za-z0-9_-]{1,64}$/
 const MAX_BODY = 512 * 1024
 
@@ -16,7 +16,7 @@ type Op =
 	| { op: 'delete'; path: string }
 
 function emptyState(): State {
-	return { invitados: {}, mesas: {}, escenarios: {} }
+	return { invitados: {}, mesas: {}, escenarios: {}, estado: {} }
 }
 
 function isPlainObject(value: unknown): value is Doc {
@@ -44,7 +44,7 @@ function parsePath(path: unknown): [Collection, string] | null {
 }
 
 async function readState(): Promise<{ state: State; etag?: string }> {
-	const result = await get(BLOB_PATH, { access: 'private', useCache: false })
+	const result = await get(BLOB_PATH, { access: 'private', useCache: false, ...blobAuth() })
 	if (!result) return { state: emptyState() }
 	const text = await new Response(result.stream).text()
 	const parsed = JSON.parse(text) as Partial<State>
@@ -58,14 +58,37 @@ function json(data: unknown, status = 200) {
 	return Response.json(data, { status, headers: PRIVATE_HEADERS })
 }
 
+// Vercel connects a Blob store either with a read-write token or, on
+// newer stores, with OIDC plus a store id. Custom env prefixes are
+// supported by looking for the matching suffix.
+function findEnv(suffix: string, valuePrefix: string): string | undefined {
+	const exact = process.env[`BLOB${suffix}`]
+	if (exact) return exact
+	return Object.entries(process.env).find(
+		([key, value]) => key.endsWith(suffix) && value?.startsWith(valuePrefix),
+	)?.[1]
+}
+
+function blobAuth(): { token: string } | { storeId: string } | null {
+	const token = findEnv('_READ_WRITE_TOKEN', 'vercel_blob_rw_')
+	if (token) return { token }
+	const storeId = findEnv('_STORE_ID', 'store_')
+	if (storeId) return { storeId }
+	return null
+}
+
 function storageMissing() {
-	return !process.env.BLOB_READ_WRITE_TOKEN
+	if (blobAuth()) return null
+	// Names only, never values, to help diagnose the store connection.
+	const seen = Object.keys(process.env).filter((key) => /BLOB|STORE/.test(key))
+	return json({ error: 'Almacenamiento no configurado', variables: seen }, 503)
 }
 
 export async function GET(req: Request) {
 	const rejection = rejectUnauthorized(req)
 	if (rejection) return rejection
-	if (storageMissing()) return json({ error: 'Almacenamiento no configurado' }, 503)
+	const missing = storageMissing()
+	if (missing) return missing
 
 	const { state } = await readState()
 	return json(state)
@@ -74,7 +97,8 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
 	const rejection = rejectUnauthorized(req)
 	if (rejection) return rejection
-	if (storageMissing()) return json({ error: 'Almacenamiento no configurado' }, 503)
+	const missing = storageMissing()
+	if (missing) return missing
 
 	const raw = await req.text()
 	if (raw.length > MAX_BODY) return json({ error: 'Demasiado grande' }, 413)
@@ -113,6 +137,7 @@ export async function POST(req: Request) {
 				addRandomSuffix: false,
 				allowOverwrite: true,
 				cacheControlMaxAge: 60,
+				...blobAuth(),
 				...(etag ? { ifMatch: etag } : {}),
 			})
 			return json(state)
