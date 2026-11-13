@@ -1,10 +1,16 @@
-import { BlobPreconditionFailedError, get, put } from '@vercel/blob'
+import {
+	BlobNotFoundError,
+	BlobPreconditionFailedError,
+	get,
+	head,
+	put,
+} from '@vercel/blob'
 import { PRIVATE_HEADERS, rejectUnauthorized } from '../auth'
 
 export const dynamic = 'force-dynamic'
 
 const BLOB_PATH = 'produccion/paquirri-plan.json'
-const COLLECTIONS = ['invitados', 'mesas', 'escenarios', 'estado'] as const
+const COLLECTIONS = ['invitados', 'mesas', 'escenarios', 'estado', 'postits'] as const
 const ID_RE = /^[A-Za-z0-9_-]{1,64}$/
 const MAX_BODY = 512 * 1024
 
@@ -16,7 +22,7 @@ type Op =
 	| { op: 'delete'; path: string }
 
 function emptyState(): State {
-	return { invitados: {}, mesas: {}, escenarios: {}, estado: {} }
+	return { invitados: {}, mesas: {}, escenarios: {}, estado: {}, postits: {} }
 }
 
 function isPlainObject(value: unknown): value is Doc {
@@ -44,14 +50,25 @@ function parsePath(path: unknown): [Collection, string] | null {
 }
 
 async function readState(): Promise<{ state: State; etag?: string }> {
-	const result = await get(BLOB_PATH, { access: 'private', useCache: false, ...blobAuth() })
+	// The ETag that put({ ifMatch }) checks is the one in the blob's
+	// metadata. The HTTP ETag header of the content response is a
+	// different value, so take it from head() before reading.
+	let etag: string
+	try {
+		etag = (await head(BLOB_PATH, blobAuth() ?? undefined)).etag
+	} catch (err) {
+		if (err instanceof BlobNotFoundError) return { state: emptyState() }
+		throw err
+	}
+	const result = await get(BLOB_PATH, {
+		access: 'private',
+		useCache: false,
+		...blobAuth(),
+	})
 	if (!result) return { state: emptyState() }
 	const text = await new Response(result.stream).text()
 	const parsed = JSON.parse(text) as Partial<State>
-	return {
-		state: { ...emptyState(), ...parsed },
-		etag: result.blob.etag,
-	}
+	return { state: { ...emptyState(), ...parsed }, etag }
 }
 
 function json(data: unknown, status = 200) {
